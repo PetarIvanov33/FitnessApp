@@ -1,5 +1,6 @@
 using FitnessApp.Infrastructure.Data;
 using FitnessApp.Infrastructure.Data.Common;
+using FitnessApp.Infrastructure.Data.Enities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime;
@@ -12,11 +13,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => {
+builder.Services.AddDefaultIdentity<User>(options => {
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequiredLength = 5;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
 })
-
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 

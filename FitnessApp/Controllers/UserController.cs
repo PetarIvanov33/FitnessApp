@@ -1,11 +1,9 @@
-﻿using FitnessApp.Infrastructure.Data;
-using FitnessApp.Infrastructure.Data.Common;
+﻿using FitnessApp.Infrastructure.Data.Common;
 using FitnessApp.Infrastructure.Data.Enities;
 using FitnessApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Controllers
 {
@@ -13,13 +11,13 @@ namespace FitnessApp.Controllers
     {
         private readonly IRepository repo;
 
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<User> userManager;
 
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly SignInManager<User> signInManager;
 
         public UserController(
-            UserManager<IdentityUser> _userManager,
-            SignInManager<IdentityUser> _signInManager,
+            UserManager<User> _userManager,
+            SignInManager<User> _signInManager,
             IRepository _repo)
         {
             userManager = _userManager;
@@ -50,20 +48,24 @@ namespace FitnessApp.Controllers
                 return View(model);
             }
 
-            var user = new IdentityUser()
+            var user = new User()
             {
                 Email = model.Email,
-                UserName = model.UserName
+                UserName = model.UserName,
+                PhoneNumber = model.PhoneNumber,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Age = model.Age
             };
 
+
             var result = await userManager.CreateAsync(user, model.Password);
+
+            await userManager.AddToRoleAsync(user, "Customer");
 
             var customer = new Customer()
             {
                 UserId = user.Id,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Age = model.Age
             };
 
             await repo.AddAsync(customer);

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221126185446_Seed")]
-    partial class Seed
+    [Migration("20221128220739_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,19 +77,6 @@ namespace FitnessApp.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -104,26 +91,12 @@ namespace FitnessApp.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Age = 25,
-                            FirstName = "Dimitar",
-                            LastName = "Petrov",
                             UserId = "dea12856-c198-4129-b3f3-b893d8395082"
                         },
                         new
                         {
                             Id = 2,
-                            Age = 33,
-                            FirstName = "Dimitar",
-                            LastName = "Ivanov",
                             UserId = "e4b69fce-458e-4234-be1d-852bebf15846"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Age = 40,
-                            FirstName = "Ivan",
-                            LastName = "Petrov",
-                            UserId = "30b99904-02f5-4465-87a9-f7f12958029a"
                         });
                 });
 
@@ -134,19 +107,6 @@ namespace FitnessApp.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -162,18 +122,196 @@ namespace FitnessApp.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Age = 18,
-                            FirstName = "Dimitar",
-                            LastName = "Marinov",
                             UserId = "f17f9cb5-f8ca-4462-85ff-ca3f59136189"
                         },
                         new
                         {
                             Id = 2,
-                            Age = 22,
-                            FirstName = "Emil",
-                            LastName = "Krustev",
                             UserId = "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2"
+                        });
+                });
+
+            modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "dea12856-c198-4129-b3f3-b893d8395082",
+                            AccessFailedCount = 0,
+                            Age = 25,
+                            ConcurrencyStamp = "2ba3cc4b-3aea-444f-bb39-2093ef8d3d91",
+                            Email = "coach1@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Stanislav",
+                            LastName = "Chakurov",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "COACH@MAIL.COM",
+                            NormalizedUserName = "COACH1",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPcij06ACPEdX1DUGFH82Q9ILCbFpKuWS9qI8xdogIKlME9xQSPOacZxByII0TEWSQ==",
+                            PhoneNumber = "0123456789",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "3007b231-7b93-49ae-9c3d-dd144be7112c",
+                            TwoFactorEnabled = false,
+                            UserName = "coach1"
+                        },
+                        new
+                        {
+                            Id = "e4b69fce-458e-4234-be1d-852bebf15846",
+                            AccessFailedCount = 0,
+                            Age = 30,
+                            ConcurrencyStamp = "2aa59338-de18-4b55-a553-26953f8b7af1",
+                            Email = "coach2@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Nikola",
+                            LastName = "Tomov",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "COACH2@MAIL.COM",
+                            NormalizedUserName = "COACH2",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOGeRH1XQhD8WVrtdygO8HxKAHn7GBbx8FFiqqwLnVqVqhDgDQ6F9BPuL+TCXe67EQ==",
+                            PhoneNumber = "0222222222",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "82bb6c56-5b89-4580-9a28-46efcf345557",
+                            TwoFactorEnabled = false,
+                            UserName = "coach2"
+                        },
+                        new
+                        {
+                            Id = "30b99904-02f5-4465-87a9-f7f12958029a",
+                            AccessFailedCount = 0,
+                            Age = 33,
+                            ConcurrencyStamp = "5dc3917c-396b-4bea-a1a2-83458fff9bfc",
+                            Email = "admin1@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Petar",
+                            LastName = "Ivanov",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN1@MAIL.COM",
+                            NormalizedUserName = "ADMIN1",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJxQSgcmDjI7IFVG+my9YhwDvh/3MwNnmAzHRT1gYVt3Pk9niGLEcqm+0XLBCLgjqw==",
+                            PhoneNumber = "0884810188",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e941f161-d3a1-4180-a3c3-11b3dd1e9156",
+                            TwoFactorEnabled = false,
+                            UserName = "admin1"
+                        },
+                        new
+                        {
+                            Id = "f17f9cb5-f8ca-4462-85ff-ca3f59136189",
+                            AccessFailedCount = 0,
+                            Age = 29,
+                            ConcurrencyStamp = "4503b717-0bd7-4640-8acf-93d8ba4293c0",
+                            Email = "client1@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Kaloqn",
+                            LastName = "Cholakov",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "CLIENT1@MAIL.COM",
+                            NormalizedUserName = "CLIENT1",
+                            PasswordHash = "AQAAAAEAACcQAAAAENCZKZyfJb7VKULJV2EHm9rIQgeQfPlWHOulEbiW+RtxZ/HfsRlRmynK7QqJzPlp3A==",
+                            PhoneNumber = "0885554888",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "22059e5a-4687-446c-ba34-e4add1ef9333",
+                            TwoFactorEnabled = false,
+                            UserName = "client1"
+                        },
+                        new
+                        {
+                            Id = "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2",
+                            AccessFailedCount = 0,
+                            Age = 22,
+                            ConcurrencyStamp = "47145e0e-53ea-42f6-8286-82b694472676",
+                            Email = "client2@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Georgi",
+                            LastName = "Shishkov",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "CLIENT2@MAIL.COM",
+                            NormalizedUserName = "CLIENT2",
+                            PasswordHash = "AQAAAAEAACcQAAAAELEVT069MF9PbQ9GrvmhLyq2Xa2jKPtD5YTiPpblMhGbgjNC+qgHINDrRG0sHlNBUg==",
+                            PhoneNumber = "0256810188",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "1bf0f111-769a-48bd-9c75-eb5519454dc5",
+                            TwoFactorEnabled = false,
+                            UserName = "client2"
                         });
                 });
 
@@ -202,6 +340,29 @@ namespace FitnessApp.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b4656095-c561-4bfa-a5ad-08f7678af1bf",
+                            ConcurrencyStamp = "a4df4dca-e4f9-4988-b4d0-7f0671f02087",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "42196e3c-e72a-4778-994f-36c85380e060",
+                            ConcurrencyStamp = "c9885a3f-327b-4f4f-a9db-5e81e9fc3e83",
+                            Name = "Coach",
+                            NormalizedName = "COACH"
+                        },
+                        new
+                        {
+                            Id = "9b325984-c63f-4dec-a00b-eeaab3d34035",
+                            ConcurrencyStamp = "8f9453f6-272a-4543-aa83-5b07d0a3183e",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -227,153 +388,6 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "dea12856-c198-4129-b3f3-b893d8395082",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "ae53f39e-7b5c-49eb-8ebc-841b26b45a99",
-                            Email = "coach1@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "coach1@mail.com",
-                            NormalizedUserName = "coach1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGYzmE8Wdv5JgQffUpr5UY92IOZz0IKtgY7FssGw9lGCpJOidi3L/+DBERlE9wvfqA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "0e7f1a9e-c503-4bca-b0bf-8408cbe5a5cb",
-                            TwoFactorEnabled = false,
-                            UserName = "coach1"
-                        },
-                        new
-                        {
-                            Id = "e4b69fce-458e-4234-be1d-852bebf15846",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d2783dba-a520-41ea-ab58-ebc7043e0908",
-                            Email = "coach2@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "coach2@mail.com",
-                            NormalizedUserName = "coach2",
-                            PasswordHash = "AQAAAAEAACcQAAAAECv+hFNyZDZf0ZXeuFiiKToXJv533pJs/DLg4yqTLwkKXq8tT3boTfnqiAbri91UgQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1b3b136f-44bf-43f8-8e81-02acf9a79ea2",
-                            TwoFactorEnabled = false,
-                            UserName = "coach2"
-                        },
-                        new
-                        {
-                            Id = "30b99904-02f5-4465-87a9-f7f12958029a",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "299179bf-2f1c-4a07-a73c-b0c914f91204",
-                            Email = "coach3@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "coach3@mail.com",
-                            NormalizedUserName = "coach3",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOOKxYceHQ6IeZSa/IIh+oBpKrNOnMgEUWpSUz5qWcU9tQffml6y99BBm4ASj9u5zA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7f0f2da9-f00b-4c44-b9c3-36f50298a09a",
-                            TwoFactorEnabled = false,
-                            UserName = "coach3"
-                        },
-                        new
-                        {
-                            Id = "f17f9cb5-f8ca-4462-85ff-ca3f59136189",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d17f1277-52d0-4173-a9b1-b009c3203c64",
-                            Email = "client1@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "client1@mail.com",
-                            NormalizedUserName = "client1",
-                            PasswordHash = "AQAAAAEAACcQAAAAENU9dbz74SOYCgb+Zb5hivy/iofk+3Hevyrm5TD6i56pwhvxNOMFp/HOTCdYsc7XBg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "bd20aa96-bff1-45d3-a8fd-d633f22c6777",
-                            TwoFactorEnabled = false,
-                            UserName = "client1"
-                        },
-                        new
-                        {
-                            Id = "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3c05624-5f78-44a9-8ef9-a5f7e37a5dc5",
-                            Email = "client2@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "client2@mail.com",
-                            NormalizedUserName = "client2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJNmrtW9bFWMSFc7Bxtbzlkoczf0iGOWA4s+NxNBGHKVsMVNIhOcdIfdCoAPUW81MQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "4cbf2313-2703-4222-b302-3b96cdf4f1ab",
-                            TwoFactorEnabled = false,
-                            UserName = "client2"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -438,6 +452,33 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "dea12856-c198-4129-b3f3-b893d8395082",
+                            RoleId = "42196e3c-e72a-4778-994f-36c85380e060"
+                        },
+                        new
+                        {
+                            UserId = "e4b69fce-458e-4234-be1d-852bebf15846",
+                            RoleId = "42196e3c-e72a-4778-994f-36c85380e060"
+                        },
+                        new
+                        {
+                            UserId = "30b99904-02f5-4465-87a9-f7f12958029a",
+                            RoleId = "b4656095-c561-4bfa-a5ad-08f7678af1bf"
+                        },
+                        new
+                        {
+                            UserId = "f17f9cb5-f8ca-4462-85ff-ca3f59136189",
+                            RoleId = "9b325984-c63f-4dec-a00b-eeaab3d34035"
+                        },
+                        new
+                        {
+                            UserId = "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2",
+                            RoleId = "9b325984-c63f-4dec-a00b-eeaab3d34035"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -463,7 +504,7 @@ namespace FitnessApp.Infrastructure.Migrations
 
             modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Coach", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -474,7 +515,7 @@ namespace FitnessApp.Infrastructure.Migrations
 
             modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Customer", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -494,7 +535,7 @@ namespace FitnessApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -503,7 +544,7 @@ namespace FitnessApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -518,7 +559,7 @@ namespace FitnessApp.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -527,7 +568,7 @@ namespace FitnessApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

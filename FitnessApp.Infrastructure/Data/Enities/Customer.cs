@@ -18,19 +18,9 @@ namespace FitnessApp.Infrastructure.Data.Enities
         public string UserId { get; set; } = null!;
 
         [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; } = null!;
+        public User User { get; set; } = null!;
 
-        [Required]
-        [StringLength(100)]
-        public string FirstName { get; set; } = null!;
-
-        [Required]
-        [StringLength(100)]
-        public string LastName { get; set; } = null!;
-
-        [Required]
-        [Range(0, 100)]
-        public int Age { get; set; }
+       
 
     }
 }

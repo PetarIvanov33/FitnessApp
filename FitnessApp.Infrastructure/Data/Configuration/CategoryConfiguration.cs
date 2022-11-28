@@ -24,7 +24,7 @@ namespace FitnessApp.Infrastructure.Data.Configuration
                 {
                     Id = 1,
                     Name = "Powerlifting"
-                                   },
+                },
 
                 new Category()
                 {
