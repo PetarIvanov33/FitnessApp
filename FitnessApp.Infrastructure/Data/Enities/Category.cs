@@ -17,6 +17,9 @@ namespace FitnessApp.Infrastructure.Data.Enities
         [StringLength(100)]
         public string Name { get; set; } = null!;
 
-       
+        public List<Article> Articles { get; set; } = new List<Article>();
+
+
+
     }
 }

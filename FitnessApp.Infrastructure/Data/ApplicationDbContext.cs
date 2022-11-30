@@ -32,6 +32,7 @@ namespace FitnessApp.Infrastructure.Data
             builder.ApplyConfiguration(new CoachConfiguration());
             builder.ApplyConfiguration(new CustomerConfiguration());
             builder.ApplyConfiguration(new UserRoleConfiguration());
+            builder.ApplyConfiguration(new ArticleConfiguration());
 
 
         }
@@ -41,6 +42,8 @@ namespace FitnessApp.Infrastructure.Data
         public DbSet<Coach> Coaches { get; set; } = null!;
 
         public DbSet<Customer> Customers { get; set; } = null!;
+
+        public DbSet<Article> Articles { get; set; } = null!;
 
     }
 }
