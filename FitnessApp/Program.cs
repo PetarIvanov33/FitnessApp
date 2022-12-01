@@ -1,8 +1,11 @@
+using FitnessApp.Core.Contracts;
+using FitnessApp.Core.Services;
 using FitnessApp.Infrastructure.Data;
 using FitnessApp.Infrastructure.Data.Common;
 using FitnessApp.Infrastructure.Data.Enities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Runtime;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +27,12 @@ builder.Services.AddDefaultIdentity<User>(options => {
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IRepository, Repository>();
+
+//builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+//builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<IArticlesService, ArticlesService>();
+
 
 var app = builder.Build();
 
