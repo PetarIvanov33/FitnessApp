@@ -22,12 +22,15 @@ namespace FitnessApp.Core.Models
         [Required]
         public int CategoryId { get; set; }
 
-        public IEnumerable<Category> Categories { get; set; } = new List<Category>();
-
-        public string UserIdOfAuthor { get; set; } = null!;
-
         [Required]
         [MinLength(10)]
         public string Content { get; set; } = null!;
+
+        public IEnumerable<Category> Categories { get; set; } = new List<Category>();
+
+        
+        public string? UserIdOfAuthor { get; set; }
+
+        
     }
 }

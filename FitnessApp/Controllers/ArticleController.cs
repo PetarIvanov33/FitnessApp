@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace FitnessApp.Controllers
 {
-    //[Authorize("Coach")]
+    [Authorize(Roles ="Coach")]
     public class ArticleController : Controller
     {
         private readonly IArticlesService articlesService;
@@ -32,8 +32,7 @@ namespace FitnessApp.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Add(AddArticleModel model)
-        {
-
+        {                    
             if (!ModelState.IsValid)
             {
 
