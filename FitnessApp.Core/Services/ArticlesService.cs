@@ -37,6 +37,26 @@ namespace FitnessApp.Core.Services
             await repo.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<DisplayedArticleContent>> GetAllAsync()
+        {
+            
+            var entities = await repo.All<Article>()
+                .Include(x => x.Category)
+                .Include(x => x.Author)
+                .ThenInclude(x => x.User)
+                .ToListAsync();
+
+            return entities.Select(x => new DisplayedArticleContent()
+            {
+                Titel = x.Title,
+                ImageURL = x.ImageURL,
+                Author = $"{x.Author.User.FirstName} {x.Author.User.LastName}",
+                Category = x.Category.Name,
+                Content = x.Content
+            });
+
+        }
+
         public async Task<IEnumerable<Category>> GetCategoryAsync()
         {
             return await repo.All<Category>().ToListAsync();

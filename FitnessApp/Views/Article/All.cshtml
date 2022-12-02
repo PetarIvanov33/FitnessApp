@@ -1,0 +1,26 @@
+﻿@using FitnessApp.Core.Models
+
+@model IEnumerable<DisplayedArticleContent>
+
+@{
+    ViewBag.Title = "ВСИЧКИ СТАТИИ";
+}
+
+<div class="text-center row">
+    @foreach (var article in Model)
+    {
+        <div class="card col-4" style="width: 20rem;">
+            <img class="card-img-top" style="width: 18rem;"
+             src="@article.ImageURL" alt="Book Image">
+            <div class="card-body">
+
+                <h4 class="card-title mt-1">@article.Titel</h4>
+                <p class="mb-0">Автор: @article.Author</p>
+                <p class="mb-0">Категория: @article.Category</p>
+            </div>
+            @*<form class="input-group-sm" asp-route-movieId="@movie.Id" asp-controller="Movies" asp-action="AddToCollection" method="post">
+                <input type="submit" value="Mark as Watched" class="fs-6 btn btn-success mb-3 p-2" />
+            </form>*@
+        </div>
+    }
+</div>

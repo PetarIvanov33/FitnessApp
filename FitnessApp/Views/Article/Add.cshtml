@@ -2,7 +2,7 @@
 @model AddArticleModel
 
 @{
-    ViewBag.Title = "Add Article";
+    ViewBag.Title = "Добави твоята нова статия!";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -12,17 +12,17 @@
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
         <form method="post">
             <div class="mb-3">
-                <label asp-for="@Model.Title" class="form-label">Title</label>
+                <label asp-for="@Model.Title" class="form-label">Заглаве</label>
                 <input asp-for="@Model.Title" class="form-control" aria-required="true" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="@Model.ImageURL" class="form-label">Image URL</label>
+                <label asp-for="@Model.ImageURL" class="form-label">Линк към снимка</label>
                 <input asp-for="@Model.ImageURL" class="form-control" aria-required="true" />
                 <span asp-validation-for="ImageURL" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="@Model.CategoryId" class="form-label">Category</label>
+                <label asp-for="@Model.CategoryId" class="form-label">Категория</label>
                 <select asp-for="@Model.CategoryId" class="form-control">
                     @foreach (var cat in Model.Categories)
                     {
@@ -32,7 +32,7 @@
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="@Model.Content" class="form-label">Content</label>
+                <label asp-for="@Model.Content" class="form-label">Съдържание</label>
                 <input asp-for="@Model.Content" class="form-control" value="" />
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>

@@ -13,5 +13,7 @@ namespace FitnessApp.Core.Contracts
         Task AddArticleAsync(AddArticleModel model);
 
         Task<IEnumerable<Category>> GetCategoryAsync();
+
+        Task<IEnumerable<DisplayedArticleContent>> GetAllAsync();
     }
 }

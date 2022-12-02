@@ -58,5 +58,14 @@ namespace FitnessApp.Controllers
                 return View(modelEnd);
             }
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> All()
+        {
+            var model = await articlesService.GetAllAsync();
+
+            return View(model);
+        }
     }
 }
