@@ -4,6 +4,7 @@ using FitnessApp.Infrastructure.Data.Enities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
 namespace FitnessApp.Controllers
@@ -49,7 +50,7 @@ namespace FitnessApp.Controllers
             {
                 await articlesService.AddArticleAsync(modelEnd);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("All");
             }
             catch (Exception)
             {
@@ -66,6 +67,62 @@ namespace FitnessApp.Controllers
             var model = await articlesService.GetAllAsync();
 
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Displayed(int id)
+        {
+           
+            if (User.Identity.IsAuthenticated)
+            {
+                return View(await articlesService.GetAllForThisArticle(id));
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            return View(await articlesService.GetLikeAddArticleModel(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, AddArticleModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+
+                model.Categories = await articlesService.GetCategoryAsync();
+
+                return View(model);
+            }
+
+
+            try
+            {
+                await articlesService.EditArticleAsync(id, model);
+
+                return RedirectToAction("All");
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await articlesService.DeleteArticle(id);
+
+            return RedirectToAction("All");
         }
     }
 }

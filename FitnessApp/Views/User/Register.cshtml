@@ -1,67 +1,67 @@
 ﻿@model RegisterViewModel
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Регистрирай се";
 }
 
 
 <style>
     body {
-        background-image: url('https://d3h9ln6psucegz.cloudfront.net/wp-content/uploads/2017/11/6-Reasons-You-Should-Never-Open-a-Gym.jpg');
+        background-image: url('https://c1.wallpaperflare.com/preview/234/625/249/various-fit-fitness-gym.jpg');
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: 100% 100%;
     }
 </style>
-<h1 class="text-center">@ViewData["Title"]</h1>
+<h1 class="text-center text-white">@ViewData["Title"]</h1>
 
 <div class="row">
     <div class="col-md-4 offset-md-4">
         <form id="registerForm" method="post">
             <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-white"></div>
             <div class="text-center mb-3">
-                <label asp-for="@Model.UserName">Username</label>
+                <label asp-for="@Model.UserName" class="text-white">Потребителско име</label>
                 <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.UserName" />
-                <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                <span asp-validation-for="@Model.UserName" class="text-white"></span>
             </div>
             <div class="text-center mb-3">
-                <label asp-for="@Model.Email">Email</label>
+                <label asp-for="@Model.Email" class="text-white">Имейл</label>
                 <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Email" />
-                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                <span asp-validation-for="@Model.Email" class="text-white"></span>
             </div>
             <div class="text-center mb-3">
-                <label asp-for="@Model.PhoneNumber">Phone Number</label>
+                <label asp-for="@Model.PhoneNumber" class="text-white">Телефонен номер</label>
                 <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.PhoneNumber" />
-                <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+                <span asp-validation-for="@Model.PhoneNumber" class="text-white"></span>
             </div>
             <div class="text-center mb-3">
-                <label asp-for="@Model.Password">Password</label>
+                <label asp-for="@Model.Password" class="text-white">Парола</label>
                 <input class="form-control" type="password" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" />
-                <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                <span asp-validation-for="@Model.Password" class="text-white"></span>
             </div>
             <div class="text-center mb-3">
-                <label asp-for="@Model.ConfirmPassword">Confirm Password</label>
+                <label asp-for="@Model.ConfirmPassword" class="text-white">Повторете паролата</label>
                 <input class="form-control" type="password" autocomplete="new-password" aria-required="true" asp-for="@Model.ConfirmPassword" />
-                <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+                <span asp-validation-for="@Model.ConfirmPassword" class="text-white"></span>
             </div>
             <div class="text-center mb-3">
-                <label asp-for="@Model.FirstName">First Name</label>
+                <label asp-for="@Model.FirstName" class="text-white">Име</label>
                 <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.FirstName" />
-                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                <span asp-validation-for="@Model.FirstName" class="text-white"></span>
             </div>
             <div class="text-center mb-3">
-                <label asp-for="@Model.LastName">Last Name</label>
+                <label asp-for="@Model.LastName" class="text-white">Фамилия</label>
                 <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.LastName" />
-                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                <span asp-validation-for="@Model.LastName" class="text-white"></span>
             </div>
             <div class="text-center mb-3">
-                <label asp-for="@Model.Age">Age</label>
+                <label asp-for="@Model.Age" class="text-white">Години</label>
                 <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Age" />
-                <span asp-validation-for="@Model.Age" class="text-danger"></span>
+                <span asp-validation-for="@Model.Age" class="text-white"></span>
             </div>
             <div class="text-center">
-                <button id="registerSubmit" type="submit" class="btn btn-primary">Register</button>
+                <button id="registerSubmit" type="submit" class="btn btn-primary fw-bold">Регистрирай се</button>
             </div>
         </form>
     </div>

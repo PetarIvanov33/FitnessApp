@@ -1,10 +1,13 @@
 ﻿@using FitnessApp.Core.Models
-
+@using System.Security.Claims;
 @model IEnumerable<DisplayedArticleContent>
 
 @{
     ViewBag.Title = "ВСИЧКИ СТАТИИ";
 }
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
 
 <div class="text-center row">
     @foreach (var article in Model)
@@ -18,9 +21,22 @@
                 <p class="mb-0">Автор: @article.Author</p>
                 <p class="mb-0">Категория: @article.Category</p>
             </div>
-            @*<form class="input-group-sm" asp-route-movieId="@movie.Id" asp-controller="Movies" asp-action="AddToCollection" method="post">
-                <input type="submit" value="Mark as Watched" class="fs-6 btn btn-success mb-3 p-2" />
-            </form>*@
+            <div class="d-grid gap-2">
+                <a asp-controller="Article" asp-action="Displayed" asp-route-id="@article.ArticleId" class="btn btn-success fw-bold">Прочети</a>
+            </div>
+            @if (this.User?.Identity != null && this.User.IsInRole("Coach"))
+            {
+                <h5> </h5>
+                <div class="d-grid gap-2">
+                    <a asp-controller="Article" asp-action="Edit" asp-route-id="@article.ArticleId" class="btn btn-warning fw-bold">Редактирай</a>
+            </div>
+            <h5> </h5>
+            <form class="mt-2" asp-controller="Article" asp-action="Delete" asp-route-id="@article.ArticleId">
+                <div class="d-grid gap-2">
+                    <input type="submit" value="Изтрий" class="btn btn-danger mb-2" onclick="return confirm('Сигурни ли сте, че искате да изтриете статия: @article.Titel')"/>
+                </div>
+            </form>
+            }
         </div>
     }
 </div>

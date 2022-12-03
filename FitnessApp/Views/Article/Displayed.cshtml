@@ -1,0 +1,39 @@
+﻿@using FitnessApp.Core.Models
+@model DisplayedArticleContent
+
+@{
+    ViewBag.Title = Model.Author;
+}
+
+@*<style>
+    body {
+        background-image: url('https://wallup.net/wp-content/uploads/2018/09/27/15768-minimalistic-gray-colors-748x468.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+</style>*@
+
+<div class="content">
+<article style="
+        width: 630px;
+        border: 2px solid gray;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+      "  class="text-center center">
+    <img src=@Model.ImageURL
+         alt=""
+         width="600"
+         height="500"
+         class="alignnone size-medium wp-image-560930" />
+        <h1>@Model.Titel</h1>
+    <h3>Автор: @Model.Author</h3>
+    <h3>Категория: @Model.Category</h3>
+    <p>
+        @Model.Content
+    </p>
+
+
+</article>
+</div>

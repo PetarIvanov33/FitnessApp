@@ -37,6 +37,32 @@ namespace FitnessApp.Core.Services
             await repo.SaveChangesAsync();
         }
 
+        public async Task DeleteArticle(int id)
+        {
+            //var article = await repo.GetByIdAsync<Article>(id);
+                
+                
+
+            await repo.DeleteAsync<Article>(id);
+            await repo.SaveChangesAsync();
+        }
+
+        public async Task EditArticleAsync(int id_, AddArticleModel model)
+        {
+            var article = await repo.All<Article>()
+                .Include(x => x.Category)
+                .Include(x => x.Author)
+                .ThenInclude(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == id_);
+
+            article.Title = model.Title;
+            article.ImageURL = model.ImageURL;
+            article.CategoryId = model.CategoryId;
+            article.Content = model.Content;
+
+           await repo.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<DisplayedArticleContent>> GetAllAsync()
         {
             
@@ -48,6 +74,7 @@ namespace FitnessApp.Core.Services
 
             return entities.Select(x => new DisplayedArticleContent()
             {
+                ArticleId = x.Id,
                 Titel = x.Title,
                 ImageURL = x.ImageURL,
                 Author = $"{x.Author.User.FirstName} {x.Author.User.LastName}",
@@ -57,9 +84,53 @@ namespace FitnessApp.Core.Services
 
         }
 
+        public async Task<DisplayedArticleContent> GetAllForThisArticle(int id_)
+        {
+            var article = await repo.All<Article>()
+                .Include(x => x.Category)
+                .Include(x => x.Author)
+                .ThenInclude(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == id_);
+
+            return new DisplayedArticleContent()
+            {
+                ArticleId = article.Id,
+                Titel = article.Title,
+                ImageURL = article.ImageURL,
+                Author = $"{article.Author.User.FirstName} {article.Author.User.LastName}",
+                AuthorUserId = article.Author.User.Id,
+                Category = article.Category.Name,
+                Content = article.Content
+
+            };
+                
+        }
+
         public async Task<IEnumerable<Category>> GetCategoryAsync()
         {
             return await repo.All<Category>().ToListAsync();
         }
+
+        public async Task<AddArticleModel> GetLikeAddArticleModel(int id_)
+        {
+            var article = await repo.All<Article>()
+                .Include(x => x.Category)
+                .Include(x => x.Author)
+                .ThenInclude(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == id_);
+
+            return new AddArticleModel()
+            {
+                Title = article.Title,
+                ImageURL = article.ImageURL,
+                UserIdOfAuthor = article.Author.UserId,
+                CategoryId = article.CategoryId,
+                Content = article.Content,
+                Categories = await GetCategoryAsync(),
+
+            };
+        }
+
+
     }
 }
