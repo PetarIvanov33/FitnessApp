@@ -1,0 +1,78 @@
+﻿@using FitnessApp.Core.Models
+@using System.Security.Claims;
+@model IEnumerable<DisplayedArticleContent>
+
+@{
+    ViewBag.Title = "Моите статии";
+}
+
+
+
+<style>
+        body {
+            background-image: url('https://coolwallpapers.me/picsup/5688017-dark-grey-wallpapers.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+</style>
+
+
+
+<h1 class="text-center fw-bolder text-white">@ViewBag.Title</h1>
+<hr />
+
+@if(Model.Count() <1)
+    {
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+        <div class="row align-items-center text-center">
+    <div class="col fs-3 fw-bold">
+        <div>
+                <h2 class="text-white fw-bold">Все още нямате ваши статии!</h2>
+        </div>
+            <a class="btn btn-success w-25 pt-3 pb-3 mt-3 mb-3  fw-bold" asp-controller="Article" asp-action="Add">Добавете статия от тук!</a>
+    </div>
+    </div>
+
+    }
+    else
+    {
+    <div class="text-center row">
+        @foreach (var article in Model)
+        {
+            <div class="col-sm-3">
+                <div class="card col-4 ml-20" style="width: 20rem; background-color:#DCDCDC;">
+                    <img class="card-img-top" style="width: 18rem;"
+                 src="@article.ImageURL" alt="Book Image">
+                    <div class="card-body">
+
+                        <h4 class="card-title mt-1">@article.Titel</h4>
+                        <p class="mb-0 fw-bold">Автор: @article.Author</p>
+                        <p class="mb-0 fw-bold">Категория: @article.Category</p>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a asp-controller="Article" asp-action="Displayed" asp-route-id="@article.ArticleId" class="btn btn-success fw-bold">Прочети</a>
+                    </div>
+                    <h5> </h5>
+                    @if (this.User?.Identity != null && this.User.IsInRole("Coach"))
+                    {
+                        <div class="d-grid gap-2">
+                            <a asp-controller="Article" asp-action="Edit" asp-route-id="@article.ArticleId" class="btn btn-warning fw-bold">Редактирай</a>
+                        </div>
+                        <form class="mt-2" asp-controller="Article" asp-action="Delete" asp-route-id="@article.ArticleId">
+                            <div class="d-grid gap-2">
+                                <input type="submit" value="Изтрий" class="btn btn-danger mb-2 fw-bold" onclick="return confirm('Сигурни ли сте, че искате да изтриете статия: @article.Titel')" />
+                            </div>
+                        </form>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    }
+

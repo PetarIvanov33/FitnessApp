@@ -69,6 +69,17 @@ namespace FitnessApp.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> AllForThisCoach()
+        {
+            var model = await articlesService.GetAllForThisCoachAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            return View(model);
+        }
+
+
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Displayed(int id)

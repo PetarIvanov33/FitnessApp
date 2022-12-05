@@ -39,10 +39,7 @@ namespace FitnessApp.Core.Services
 
         public async Task DeleteArticle(int id)
         {
-            //var article = await repo.GetByIdAsync<Article>(id);
-                
-                
-
+            
             await repo.DeleteAsync<Article>(id);
             await repo.SaveChangesAsync();
         }
@@ -104,6 +101,27 @@ namespace FitnessApp.Core.Services
 
             };
                 
+        }
+
+        public async Task<IEnumerable<DisplayedArticleContent>> GetAllForThisCoachAsync(string idOfCurrentUser)
+        {
+            var entities = await repo.All<Article>()
+                .Include(x => x.Category)
+                .Include(x => x.Author)
+                .ThenInclude(x => x.User)
+                .Where(x => x.Author.UserId == idOfCurrentUser)
+                .ToListAsync();
+                
+
+            return entities.Select(x => new DisplayedArticleContent()
+            {
+                ArticleId = x.Id,
+                Titel = x.Title,
+                ImageURL = x.ImageURL,
+                Author = $"{x.Author.User.FirstName} {x.Author.User.LastName}",
+                Category = x.Category.Name,
+                Content = x.Content
+            });
         }
 
         public async Task<IEnumerable<Category>> GetCategoryAsync()

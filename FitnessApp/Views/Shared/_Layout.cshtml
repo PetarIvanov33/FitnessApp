@@ -23,10 +23,13 @@
                             <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Article" asp-action="All">Статии</a>
+                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Article" asp-action="All">Всички статии</a>
                         </li>
                        @if(this.User?.Identity != null && this.User.IsInRole("Coach"))
                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Article" asp-action="AllForThisCoach">Моите статии</a>
+                            </li>
                            <li class="nav-item dropdown">
                                 <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Article" asp-action="Add">Добави статия</a>
                             </li>

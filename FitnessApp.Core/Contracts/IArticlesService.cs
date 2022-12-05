@@ -16,6 +16,8 @@ namespace FitnessApp.Core.Contracts
 
         Task<IEnumerable<DisplayedArticleContent>> GetAllAsync();
 
+        Task<IEnumerable<DisplayedArticleContent>> GetAllForThisCoachAsync(string idOfCurrentUser);
+
         Task<DisplayedArticleContent> GetAllForThisArticle(int id);
 
         Task<AddArticleModel> GetLikeAddArticleModel(int id);

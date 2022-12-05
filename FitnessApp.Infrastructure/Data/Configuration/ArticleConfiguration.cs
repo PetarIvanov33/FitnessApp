@@ -23,7 +23,7 @@ namespace FitnessApp.Infrastructure.Data.Configuration
                 new Article()
                 {
                     Id = 1,
-                    Title = "Поузи от МЪРТВАТА ТЯГА",
+                    Title = "Ползи от МЪРТВАТА ТЯГА",
                     ImageURL = "https://trenirai.bg/wp-content/uploads/2019/02/deadhlift.jpg",
                     AuthorId = 1,
                     CategoryId = 1,
