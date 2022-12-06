@@ -22,10 +22,10 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark fw-bold" asp-area="Admin" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
-                        @*<li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Article" asp-action="All">Всички статии</a>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark fw-bold" asp-area="default" asp-controller="Article" asp-action="All">Всички статии</a>
                         </li>
-                       @if(this.User?.Identity != null && this.User.IsInRole("Coach"))
+                        @*@if(this.User?.Identity != null && this.User.IsInRole("Coach"))
                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Article" asp-action="AllForThisCoach">Моите статии</a>

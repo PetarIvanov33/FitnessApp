@@ -10,7 +10,7 @@
             <a class="nav-link text-dark fw-bold" asp-controller="Home" asp-action="Index" title="Greating">Здравей, @User.Identity?.Name!</a>
         </li>
      <li class="nav-item">
-            <form class="form-inline" asp-controller="User" asp-action="Logout" asp-route-id="@UserManager.GetUserId(User)">
+            <form class="form-inline" asp-area="default" asp-controller="User" asp-action="Logout" asp-route-id="@UserManager.GetUserId(User)">
                 <button type="submit" class="nav-link btn btn-link text-dark fw-bold">Изход</button>
             </form>
         </li>

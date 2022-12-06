@@ -39,7 +39,7 @@
                 <a asp-controller="Article" asp-action="Displayed" asp-route-id="@article.ArticleId" class="btn btn-success fw-bold">Прочети</a>
             </div>
             <h5> </h5>
-            @*@if (this.User?.Identity != null && this.User.IsInRole("Coach"))
+            @if (this.User?.Identity != null && this.User.IsInRole("Admin"))
             {
                 <div class="d-grid gap-2">
                     <a asp-controller="Article" asp-action="Edit" asp-route-id="@article.ArticleId" class="btn btn-warning fw-bold">Редактирай</a>
@@ -49,7 +49,7 @@
                     <input type="submit" value="Изтрий" class="btn btn-danger mb-2 fw-bold" onclick="return confirm('Сигурни ли сте, че искате да изтриете статия: @article.Titel')"/>
                 </div>
             </form>
-            }*@
+            }
         </div>
         </div>
     }

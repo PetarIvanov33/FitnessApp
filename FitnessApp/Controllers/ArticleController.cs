@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace FitnessApp.Controllers
 {
-    [Authorize(Roles ="Coach")]
+    [Authorize(Roles ="Coach, Admin")]
     public class ArticleController : Controller
     {
         private readonly IArticlesService articlesService;
