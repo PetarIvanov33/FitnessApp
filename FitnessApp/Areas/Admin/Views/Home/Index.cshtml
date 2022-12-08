@@ -20,8 +20,11 @@
     <h1 class="display-4 fw-bold text-white">Добре дошли в Администрация!</h1>
  </div>
 
-<<div class="container mt-5 overflow-hidden">
-    <div class="row fs-2">
-        <a asp-area="default" asp-controller="Article" asp-action="All" class="btn btn-primary btn-lg text-center text-black fw-bold">ВСИЧКИ СТАТИИ</a>
-    </div>
+<div class="mt-4 p-5 text-center">
+<a asp-area="default" asp-controller="Article" asp-action="All" class="btn btn-primary text-center btn-lg text-black fw-bold">ВСИЧКИ СТАТИИ</a>
+<span class="text-white"> | </span>
+<a asp-area="Admin" asp-controller="Coach" asp-action="AddCoach" class="btn btn-primary text-center btn-lg text-black fw-bold">ДОБАВЕТЕ ТРЕНЬОР</a>
 </div>
+
+
+

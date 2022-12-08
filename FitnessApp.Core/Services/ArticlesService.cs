@@ -111,7 +111,7 @@ namespace FitnessApp.Core.Services
                 .ThenInclude(x => x.User)
                 .Where(x => x.Author.UserId == idOfCurrentUser)
                 .ToListAsync();
-                
+
 
             return entities.Select(x => new DisplayedArticleContent()
             {
