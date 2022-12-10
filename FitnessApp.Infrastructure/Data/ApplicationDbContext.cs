@@ -2,6 +2,7 @@
 using FitnessApp.Infrastructure.Data.Enities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace FitnessApp.Infrastructure.Data
 {
@@ -16,6 +17,10 @@ namespace FitnessApp.Infrastructure.Data
         {
             base.OnModelCreating(builder);
 
+            foreach (var relationship in builder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
 
             builder.Entity<User>(u =>
             {
@@ -25,6 +30,20 @@ namespace FitnessApp.Infrastructure.Data
                 u.Property(u => u.NormalizedEmail).HasMaxLength(25);
                 u.Property(u => u.PhoneNumber).HasMaxLength(15).IsRequired();
             });
+
+            builder.Entity<CustomerProgram>()
+               .HasKey(x => new { x.ProgramId, x.CustomerId });
+
+            builder.Entity<CustomerProgram>()
+            .HasOne<Program>(sc => sc.Program)
+            .WithMany(s => s.CustomerPrograms)
+            .HasForeignKey(sc => sc.ProgramId);
+
+
+            builder.Entity<CustomerProgram>()
+                .HasOne<Customer>(sc => sc.Customer)
+                .WithMany(s => s.CustomerPrograms)
+                .HasForeignKey(sc => sc.CustomerId);
 
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
@@ -44,6 +63,10 @@ namespace FitnessApp.Infrastructure.Data
         public DbSet<Customer> Customers { get; set; } = null!;
 
         public DbSet<Article> Articles { get; set; } = null!;
+
+        public DbSet<Program> Programs { get; set; } = null!;
+
+        public DbSet<CustomerProgram> CustomersPrograms { get; set; } = null!;
 
     }
 }

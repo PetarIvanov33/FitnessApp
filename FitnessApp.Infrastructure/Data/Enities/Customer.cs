@@ -20,7 +20,7 @@ namespace FitnessApp.Infrastructure.Data.Enities
         [ForeignKey(nameof(UserId))]
         public User User { get; set; } = null!;
 
-       
+        public List<CustomerProgram> CustomerPrograms { get; set; } = new List<CustomerProgram>();
 
     }
 }

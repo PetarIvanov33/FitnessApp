@@ -19,7 +19,7 @@ namespace FitnessApp.Infrastructure.Data.Enities
 
         public List<Article> Articles { get; set; } = new List<Article>();
 
-
+        public List<Program> Programs { get; set; } = new List<Program>();
 
     }
 }
