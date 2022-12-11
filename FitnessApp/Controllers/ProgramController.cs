@@ -48,7 +48,7 @@ namespace FitnessApp.Controllers
             {
                 await programsService.AddProgramAsync(modelEnd);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("All");
             }
             catch (Exception)
             {
@@ -59,9 +59,34 @@ namespace FitnessApp.Controllers
         }
 
         [HttpGet]
-        public async Task<FileResult> Export()
+        [AllowAnonymous]
+        public async Task<IActionResult> All()
         {
-            return File(await programsService.ExportProgram(1), "application/vnd.ms-word", "program.doc");
+            var model = await programsService.GetAllAsync();
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AllForThisCoach()
+        {
+            var model = await programsService.GetAllForThisCoachAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<FileResult> Export(int id)
+        {
+            return File(await programsService.ExportProgram(id), "application/vnd.ms-word", "program.doc");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await programsService.DeleteProgram(id);
+
+            return RedirectToAction("All");
         }
     }
 }

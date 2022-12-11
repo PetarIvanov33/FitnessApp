@@ -14,7 +14,13 @@ namespace FitnessApp.Core.Contracts
 
         Task AddProgramAsync(AddProgramModel model);
 
+        Task<IEnumerable<DisplayedProgramContent>> GetAllAsync();
+
+        Task<IEnumerable<DisplayedProgramContent>> GetAllForThisCoachAsync(string idOfCurrentUser);
+
         Task<byte[]> ExportProgram(int id);
+
+        Task DeleteProgram(int id);
 
     }
 }

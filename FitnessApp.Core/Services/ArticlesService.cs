@@ -39,7 +39,6 @@ namespace FitnessApp.Core.Services
 
         public async Task DeleteArticle(int id)
         {
-            
             await repo.DeleteAsync<Article>(id);
             await repo.SaveChangesAsync();
         }
