@@ -36,6 +36,14 @@ namespace FitnessApp.Infrastructure.Data.Enities
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }
 
+        [Required]
+        [MaxLength(200)]
+        public string ContentFileName { get; set; } = null!;
+
+        [Required]
+        [MaxLength(100)]
+        public string ContentFileType { get; set; } = null!;
+
         [MaxLength]
         public byte[] Content { get; set; }
 

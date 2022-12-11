@@ -4,6 +4,7 @@ using FitnessApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221210154544_AddProgramContentFileTipe")]
+    partial class AddProgramContentFileTipe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -210,11 +212,6 @@ namespace FitnessApp.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("ContentFileName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<string>("ContentFileType")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -329,7 +326,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
                             Age = 25,
-                            ConcurrencyStamp = "b4f8e0eb-6592-4c95-ada0-150dda290863",
+                            ConcurrencyStamp = "9c159c2e-b7b7-4958-a2d4-cda83dc111db",
                             Email = "coach1@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Stanislav",
@@ -337,10 +334,10 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "COACH@MAIL.COM",
                             NormalizedUserName = "COACH1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMa2ufiTsiLI6GhSniSqTtNm5SXKUrTfjsDuP+ru6wFPcFhkbR23Qjrp5Jqvuw3gmg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC6nuK0QTZl8dK82+GwTq8HYiuo4vlcKUElwQsd2miu0Bc+wEQr5NlQbZH838Zj5fg==",
                             PhoneNumber = "0123456789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ccada258-9706-45e8-969f-837d8ba88385",
+                            SecurityStamp = "4175de98-2299-4749-a1f6-43269d20a27d",
                             TwoFactorEnabled = false,
                             UserName = "coach1"
                         },
@@ -349,7 +346,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "e4b69fce-458e-4234-be1d-852bebf15846",
                             AccessFailedCount = 0,
                             Age = 30,
-                            ConcurrencyStamp = "e4796fcb-93af-46a7-8128-acf32190999b",
+                            ConcurrencyStamp = "a352e7a1-f15d-4932-af11-ce16ae8f454d",
                             Email = "coach2@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Nikola",
@@ -357,10 +354,10 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "COACH2@MAIL.COM",
                             NormalizedUserName = "COACH2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG2rzY8uF9xSNhKJAOevdCixY3fHmikd/mYclD4r2vNNkMoLzXLbD3xua7QkPDIrfg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGun3ZtDTZpZm777tSCTSmRCgoTzcLUzPm1VuSNaordnmklVoMYStV11m1sOuYyLxQ==",
                             PhoneNumber = "0222222222",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "18f5857e-c454-42b6-bd2b-5188a5451867",
+                            SecurityStamp = "5d723c71-5e79-4695-a24c-0b93fc3c6edd",
                             TwoFactorEnabled = false,
                             UserName = "coach2"
                         },
@@ -369,7 +366,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "30b99904-02f5-4465-87a9-f7f12958029a",
                             AccessFailedCount = 0,
                             Age = 33,
-                            ConcurrencyStamp = "96eaa386-06cb-4f82-8cac-109a4b8ebd30",
+                            ConcurrencyStamp = "27f877d7-8b44-401c-a0ad-1eac92043112",
                             Email = "admin1@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Petar",
@@ -377,10 +374,10 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN1@MAIL.COM",
                             NormalizedUserName = "ADMIN1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFmLX0SCmv0Og/YH3K4WBE4ogZcnSAe9nBvM4WYsK+l+2+LgfF6XuoeVUNaRVViwjA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGbZoAxgq8DVWyOglwhrx+qHTvqdOxXbshwewLmKHHs7/WJZs5dPrhz3d1DpFSnM+g==",
                             PhoneNumber = "0884810188",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0c2a66c2-066b-4661-9734-524e10256f5d",
+                            SecurityStamp = "c630ded0-eebf-4843-981e-6933c8acb96f",
                             TwoFactorEnabled = false,
                             UserName = "admin1"
                         },
@@ -389,7 +386,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "f17f9cb5-f8ca-4462-85ff-ca3f59136189",
                             AccessFailedCount = 0,
                             Age = 29,
-                            ConcurrencyStamp = "4903bbb3-e069-4471-be4a-9727674c4b03",
+                            ConcurrencyStamp = "df0cfd30-cb05-4a45-a48b-3fc2fc8b1841",
                             Email = "client1@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Kaloqn",
@@ -397,10 +394,10 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENT1@MAIL.COM",
                             NormalizedUserName = "CLIENT1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFN0V/poA4LSxv3RBFh2iSzESKa0vpaGMgal4BIww5G0Mra6UP+LuF0Cus5NOOBN3w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDECCnt8fRn7yoLgq7jRChaENMNX73Glc++31SSDS1wRFm8LqdGzwrss0RlDVq+xcw==",
                             PhoneNumber = "0885554888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4c9733e9-cfeb-4cfc-93eb-a872ec3bc1ea",
+                            SecurityStamp = "accd0269-af6e-4468-947d-352211d159a4",
                             TwoFactorEnabled = false,
                             UserName = "client1"
                         },
@@ -409,7 +406,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2",
                             AccessFailedCount = 0,
                             Age = 22,
-                            ConcurrencyStamp = "6c3e6724-133d-4e1f-bc05-f9738ce2ea5d",
+                            ConcurrencyStamp = "2f0e2aef-1355-4015-8e8a-c8d065d2a7b3",
                             Email = "client2@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Georgi",
@@ -417,10 +414,10 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENT2@MAIL.COM",
                             NormalizedUserName = "CLIENT2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPDqvohNd+B+voOwJGx1N+64uGUIhAE+4HdffWNdUDe1hTrfO4fkfjZz2EC50fbQfQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIcTKY9oseIbDfm37yd8ymAOaOTClZdP3pxlTgfDCVdfct5Cw6eUT5EKrdNTgeA8/Q==",
                             PhoneNumber = "0256810188",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "09b677be-7c53-49d6-94a7-461e18ff2441",
+                            SecurityStamp = "794be09f-7a47-424c-b8ac-2f7744eb4655",
                             TwoFactorEnabled = false,
                             UserName = "client2"
                         });
@@ -456,21 +453,21 @@ namespace FitnessApp.Infrastructure.Migrations
                         new
                         {
                             Id = "b4656095-c561-4bfa-a5ad-08f7678af1bf",
-                            ConcurrencyStamp = "3db3e1f6-a1bb-4cc6-a446-145619546944",
+                            ConcurrencyStamp = "1de9adf7-5e53-49de-b1fc-bf240bdffd7c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "42196e3c-e72a-4778-994f-36c85380e060",
-                            ConcurrencyStamp = "69e6cfc5-e49d-4033-9d31-b915bbfd4cd0",
+                            ConcurrencyStamp = "1247623c-c121-482f-b136-d761eece78d1",
                             Name = "Coach",
                             NormalizedName = "COACH"
                         },
                         new
                         {
                             Id = "9b325984-c63f-4dec-a00b-eeaab3d34035",
-                            ConcurrencyStamp = "653c88e9-2ab4-4f6a-9619-e503b74f766f",
+                            ConcurrencyStamp = "88831564-f707-40fe-8e3c-d69cb8c8a5e4",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });

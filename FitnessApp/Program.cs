@@ -32,6 +32,7 @@ builder.Services.AddScoped<IRepository, Repository>();
 //builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<IArticlesService, ArticlesService>();
+builder.Services.AddScoped<IProgramsService, ProgramsService>();
 
 
 var app = builder.Build();
