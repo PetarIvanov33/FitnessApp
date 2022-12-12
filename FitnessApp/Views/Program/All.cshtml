@@ -41,6 +41,10 @@
                     <div class="d-grid gap-2">
                         <a asp-controller="Program" asp-action="Export" asp-route-id="@program.ProgramId" class="btn btn-success fw-bold">Изтегли програмата</a>
                     </div>
+                    <h5> </h5>
+                    <div class="d-grid gap-2">
+                        <a asp-controller="Program" asp-action="Edit" asp-route-id="@program.ProgramId" class="btn btn-warning fw-bold">Редактирай</a>
+                    </div>
                     <form class="mt-2" asp-controller="Program" asp-action="Delete" asp-route-id="@program.ProgramId">
                         <div class="d-grid gap-2">
                             <input type="submit" value="Изтрий" class="btn btn-danger mb-2 fw-bold" onclick="return confirm('Сигурни ли сте, че искате да изтриете програма: @program.Title')" />

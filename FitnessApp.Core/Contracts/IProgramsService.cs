@@ -22,5 +22,9 @@ namespace FitnessApp.Core.Contracts
 
         Task DeleteProgram(int id);
 
+        Task<AddProgramModel> GetLikeAddProgramModel(int id);
+
+        Task EditProgramAsync(int id, AddProgramModel model);
+
     }
 }

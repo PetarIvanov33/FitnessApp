@@ -66,6 +66,43 @@ namespace FitnessApp.Core.Services
             await repo.SaveChangesAsync();
         }
 
+        public async Task EditProgramAsync(int id, AddProgramModel model)
+        {
+            if (model.Content != null)
+            {
+                if (model.Content.Length > 0)
+                {
+                    //Getting FileName
+                    var fileName = Path.GetFileName(model.Content.FileName);
+                    //Getting file Extension
+                    var fileExtension = Path.GetExtension(fileName);
+                    // concatenating  FileName + FileExtension
+                    var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
+
+                    var program = await repo.All<Program>()
+                    .Include(x => x.Category)
+                    .Include(x => x.Author)
+                    .ThenInclude(x => x.User)
+                    .FirstOrDefaultAsync(x => x.Id == id);
+
+                    program.Title = model.Title;
+                    program.ImageURL = model.ImageURL;
+                    program.Price = model.Price;
+                    program.CategoryId = model.CategoryId;
+                    program.ContentFileType = fileExtension;
+                    program.ContentFileName = newFileName;
+
+                    using (var target = new MemoryStream())
+                    {
+                        model.Content.CopyTo(target);
+                        program.Content = target.ToArray();
+                    }
+
+                    await repo.SaveChangesAsync();
+                }
+            }
+        }
+
         public async Task<byte[]> ExportProgram(int id)
         {
            var export = await repo.All<Program>()
@@ -129,6 +166,21 @@ namespace FitnessApp.Core.Services
             return await repo.All<Category>().ToListAsync();
         }
 
-        
+        public async Task<AddProgramModel> GetLikeAddProgramModel(int id)
+        {
+            var program = await repo.All<Program>()
+                .Include(x => x.Category)
+                .Include(x => x.Author)
+                .ThenInclude(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return new AddProgramModel()
+            {
+                Title = program.Title,
+                ImageURL = program.ImageURL,
+                Price = program.Price,
+                Categories = await GetCategoryAsync(),
+            };
+        }
     }
 }

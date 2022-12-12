@@ -1,0 +1,63 @@
+﻿@using FitnessApp.Core.Models
+@model AddProgramModel
+
+@{
+    ViewBag.Title = "Редактирай програмата!";
+}
+
+<style>
+    body {
+        background-image: url('https://coolwallpapers.me/picsup/5688017-dark-grey-wallpapers.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+</style>
+
+<h2 class="text-center text-white">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label asp-for="@Model.Title" class="form-label text-white fw-bold">Заглаве</label>
+                <input asp-for="@Model.Title" class="form-control" aria-required="true" />
+                <span asp-validation-for="Title" class="text-white"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ImageURL" class="form-label text-white fw-bold">Линк към снимка</label>
+                <input asp-for="@Model.ImageURL" class="form-control" aria-required="true" />
+                <span asp-validation-for="ImageURL" class="text-white"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Price" class="form-label text-white fw-bold">Добавете нова цена (В лева!)</label>
+                <input asp-for="@Model.Price" class="form-control" value="" />
+                <span asp-validation-for="Price" class="text-white"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.CategoryId" class="form-label text-white fw-bold">Категория</label>
+                <select asp-for="@Model.CategoryId" class="form-control">
+                    @foreach (var cat in Model.Categories)
+                    {
+                        <option value="@cat.Id">@cat.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="text-white"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Content" class="form-label text-white fw-bold">Добажете ново съдържание (Word документ)</label>
+                <input asp-for="@Model.Content" class="form-control" type="file" value="" />
+                <span asp-validation-for="Content" class="text-white"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-primary mt-3 fw-bold" type="submit" value="Редактирай" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

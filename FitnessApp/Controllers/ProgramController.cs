@@ -7,7 +7,6 @@ using System.Security.Claims;
 
 namespace FitnessApp.Controllers
 {
-    [Authorize(Roles = "Coach, Admin")]
     public class ProgramController : Controller
     {
         private readonly IProgramsService programsService;
@@ -18,6 +17,7 @@ namespace FitnessApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Coach, Admin")]
         public async Task<IActionResult> Add()
         {
 
@@ -30,6 +30,7 @@ namespace FitnessApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Coach, Admin")]
         public async Task<IActionResult> Add(AddProgramModel model)
         {
             if (!ModelState.IsValid)
@@ -59,6 +60,40 @@ namespace FitnessApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Coach, Admin")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            return View(await programsService.GetLikeAddProgramModel(id));
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Coach, Admin")]
+        public async Task<IActionResult> Edit(int id, AddProgramModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+
+                model.Categories = await programsService.GetCategoryAsync();
+
+                return View(model);
+            }
+
+
+            try
+            {
+                await programsService.EditProgramAsync(id, model);
+
+                return RedirectToAction("All");
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+
+                return View(model);
+            }
+        }
+
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {
@@ -68,6 +103,7 @@ namespace FitnessApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Coach, Admin")]
         public async Task<IActionResult> AllForThisCoach()
         {
             var model = await programsService.GetAllForThisCoachAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -76,12 +112,14 @@ namespace FitnessApp.Controllers
         }
 
         [HttpGet]
-        public async Task<FileResult> Export(int id)
+        [Authorize(Roles = "Coach, Admin, Customer")]
+        public async Task<FileResult> Export(int id) 
         {
             return File(await programsService.ExportProgram(id), "application/vnd.ms-word", "program.doc");
         }
 
         [HttpPost]
+        [Authorize(Roles = "Coach, Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             await programsService.DeleteProgram(id);
