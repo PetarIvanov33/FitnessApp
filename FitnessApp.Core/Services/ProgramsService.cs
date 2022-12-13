@@ -136,6 +136,31 @@ namespace FitnessApp.Core.Services
 
         }
 
+        public async Task<IEnumerable<DisplayedProgramContentForCustomers>> GetAllForCustomersAsync(string idOfCurrentUser)
+        {
+            var programs = await repo.All<Program>()
+                .Include(x => x.Category)
+                .Include(x => x.Author)
+                .ThenInclude(x => x.User)
+                .ToArrayAsync();
+
+            var allProgramForReturn =
+                programs.Select(x => new DisplayedProgramContentForCustomers()
+                {
+                    ProgramId = x.Id,
+                    Title = x.Title,
+                    ImageURL = x.ImageURL,
+                    Price = x.Price,
+                    AuthorUserId = x.Author.UserId,
+                    AuthorId = x.AuthorId,
+                    Author = $"{x.Author.User.FirstName} {x.Author.User.LastName}",
+                    Category = x.Category.Name,
+                    IsBought = IsProgramBoughtByThisCustomer(x.Id, idOfCurrentUser)
+                }); 
+
+            return allProgramForReturn;
+        }
+
         public async Task<IEnumerable<DisplayedProgramContent>> GetAllForThisCoachAsync(string idOfCurrentUser)
         {
             var programs = await repo.All<Program>()
@@ -161,6 +186,34 @@ namespace FitnessApp.Core.Services
             return allProgramForReturn;
         }
 
+        public async Task<IEnumerable<DisplayedProgramContent>> GetAllForThisCustomerAsync(string idOfCurrentUser)
+        {
+            var customer = await repo.All<Customer>()
+                .Include(x => x.CustomerPrograms)
+                .ThenInclude(x => x.Program.Author.User)
+                .Include(x => x.CustomerPrograms)
+                .ThenInclude(x => x.Program.Category)
+                .FirstOrDefaultAsync(x => x.UserId == idOfCurrentUser);
+
+            var programsOfCustomer = customer.CustomerPrograms
+                .Select(x => x.Program)
+                .ToList();
+
+            var programsForReturn =  programsOfCustomer.Select(x => new DisplayedProgramContent()
+            {
+                ProgramId = x.Id,
+                Title = x.Title,
+                ImageURL = x.ImageURL,
+                Price = x.Price,
+                AuthorUserId = x.Author.UserId,
+                AuthorId = x.AuthorId,
+                Author = $"{x.Author.User.FirstName} {x.Author.User.LastName}",
+                Category = x.Category.Name
+            });
+
+            return programsForReturn;
+        }
+
         public async Task<IEnumerable<Category>> GetCategoryAsync()
         {
             return await repo.All<Category>().ToListAsync();
@@ -181,6 +234,31 @@ namespace FitnessApp.Core.Services
                 Price = program.Price,
                 Categories = await GetCategoryAsync(),
             };
+        }
+
+        public bool IsProgramBoughtByThisCustomer(int idOfProgram, string idOfCurrentUser)
+        {
+            bool result = repo.All<CustomerProgram>()
+                .Include(x => x.Customer)
+                .Any(x => x.ProgramId == idOfProgram && x.Customer.UserId == idOfCurrentUser);
+
+            return result;
+        }
+
+        public async Task Sell(int id, string idOfCurrentUser)
+        {
+            var customer = await repo.All<Customer>()
+                .FirstOrDefaultAsync(x => x.UserId == idOfCurrentUser);
+            var idOfCustomer =  customer.Id;
+
+            var customerProgram = new CustomerProgram()
+            {
+                CustomerId = idOfCustomer,
+                ProgramId = id
+            };
+
+            await repo.AddAsync<CustomerProgram>(customerProgram);
+            await repo.SaveChangesAsync();
         }
     }
 }

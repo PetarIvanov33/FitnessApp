@@ -36,7 +36,14 @@
                 <p class="mb-0 fw-bold">Автор: @program.Author</p>
                 <p class="mb-0 fw-bold">Категория: @program.Category</p>
             </div>
-                @if (this.User?.Identity != null && this.User.IsInRole("Admin"))
+                @if (this.User?.Identity != null && this.User.IsInRole("Coach"))
+                {
+                    <div class="d-grid gap-2">
+                        <a asp-controller="Program" asp-action="Export" asp-route-id="@program.ProgramId" class="btn btn-success fw-bold">Изтегли програмата</a>
+                    </div>
+                    <h5> </h5>
+                }
+                else if (this.User?.Identity != null && this.User.IsInRole("Admin"))
                 {
                     <div class="d-grid gap-2">
                         <a asp-controller="Program" asp-action="Export" asp-route-id="@program.ProgramId" class="btn btn-success fw-bold">Изтегли програмата</a>
@@ -48,6 +55,14 @@
                     <form class="mt-2" asp-controller="Program" asp-action="Delete" asp-route-id="@program.ProgramId">
                         <div class="d-grid gap-2">
                             <input type="submit" value="Изтрий" class="btn btn-danger mb-2 fw-bold" onclick="return confirm('Сигурни ли сте, че искате да изтриете програма: @program.Title')" />
+                        </div>
+                    </form>
+                }
+                else
+                {
+                    <form class="mt-2" asp-controller="Program" asp-action="Sell" asp-route-id="@program.ProgramId">
+                        <div class="d-grid gap-2">
+                            <input type="submit" value="Купи" class="btn btn-success mb-2 fw-bold" />
                         </div>
                     </form>
                 }

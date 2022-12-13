@@ -72,7 +72,7 @@ namespace FitnessApp.Infrastructure.Data.Configuration
             };
 
             user.PasswordHash =
-                hasher.HashPassword(user, "coach_3");
+                hasher.HashPassword(user, "admin_1");
 
             users.Add(user);
 

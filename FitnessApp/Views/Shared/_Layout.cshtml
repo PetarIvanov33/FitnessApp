@@ -34,9 +34,22 @@
                                 <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Article" asp-action="Add">Добави статия</a>
                             </li>
                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Program" asp-action="All">Всички програми</a>
+                        
+                        @if(this.User?.Identity != null && this.User.IsInRole("Customer"))
+                       {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Program" asp-action="AllForCustomers">Всички програми</a>
+                            </li>
+                           <li class="nav-item">
+                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Program" asp-action="AllForThisCustomer">Закупени програми</a>
                         </li>
+                       }
+                       else
+                        {
+                                <li class="nav-item">
+                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Program" asp-action="All">Всички програми</a>
+                            </li>
+                        }
                         @if(this.User?.Identity != null && this.User.IsInRole("Coach"))
                        {
                             <li class="nav-item">

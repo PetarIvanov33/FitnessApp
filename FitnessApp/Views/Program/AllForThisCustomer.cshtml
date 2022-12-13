@@ -1,0 +1,71 @@
+﻿@using FitnessApp.Core.Models
+@using System.Security.Claims;
+@model IEnumerable<DisplayedProgramContent>
+
+@{
+    ViewBag.Title = "Закупени програми";
+}
+
+
+
+<style>
+    body {
+        background-image: url('https://coolwallpapers.me/picsup/5688017-dark-grey-wallpapers.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+</style>
+
+
+
+<h1 class="text-center fw-bolder text-white">@ViewBag.Title</h1>
+<hr />
+
+
+@if (Model.Count() < 1)
+{
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <div class="row align-items-center text-center">
+        <div class="col fs-3 fw-bold">
+            <div>
+                <h2 class="text-white fw-bold">Все още нямате закупени програми!</h2>
+            </div>
+            <a class="btn btn-success w-25 pt-3 pb-3 mt-3 mb-3  fw-bold" asp-controller="Program" asp-action="AllForCustomers">Можете да закупите програма от тук!</a>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="text-center row">
+        @foreach (var program in Model)
+        {
+            <div class="col-sm-3">
+                <div class="card col-4 ml-20" style="width: 20rem; background-color:#DCDCDC;">
+                    <img class="card-img-top" style="width: 18rem;"
+                 src="@program.ImageURL" alt="Book Image">
+                    <div class="card-body">
+
+                        <h4 class="card-title mt-1">@program.Title</h4>
+                        <h5 class="mb-0 fw-bold">Цена: @program.Price лв.</h5>
+                        <p class="mb-0 fw-bold">Автор: @program.Author</p>
+                        <p class="mb-0 fw-bold">Категория: @program.Category</p>
+                    </div>
+                    @if (this.User?.Identity != null && this.User.IsInRole("Customer"))
+                    {
+                        <div class="d-grid gap-2">
+                            <a asp-controller="Program" asp-action="Export" asp-route-id="@program.ProgramId" class="btn btn-success fw-bold">Изтегли програмата</a>
+                        </div>
+                        <h5> </h5>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}

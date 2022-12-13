@@ -103,6 +103,15 @@ namespace FitnessApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> AllForCustomers()
+        {
+            var model = await programsService.GetAllForCustomersAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            return View(model);
+        }
+
+        [HttpGet]
         [Authorize(Roles = "Coach, Admin")]
         public async Task<IActionResult> AllForThisCoach()
         {
@@ -125,6 +134,32 @@ namespace FitnessApp.Controllers
             await programsService.DeleteProgram(id);
 
             return RedirectToAction("All");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]//[Authorize(Roles = "Customer")]
+        public async Task<IActionResult> Sell(int id)
+        {
+            if (this.User?.Identity != null && this.User.IsInRole("Customer"))
+            {
+                await programsService.Sell(id, User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+                return RedirectToAction("AllForThisCustomer");
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> AllForThisCustomer()
+        {
+            var model = await programsService.GetAllForThisCustomerAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            return View(model);
         }
     }
 }

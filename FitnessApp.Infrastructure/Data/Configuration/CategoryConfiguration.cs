@@ -49,6 +49,12 @@ namespace FitnessApp.Infrastructure.Data.Configuration
                 {
                     Id = 5,
                     Name = "Long-distance running"
+                },
+
+                new Category()
+                {
+                    Id = 6,
+                    Name = "Functional Bodybuilding"
                 }
 
              };

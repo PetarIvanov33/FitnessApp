@@ -16,6 +16,10 @@ namespace FitnessApp.Core.Contracts
 
         Task<IEnumerable<DisplayedProgramContent>> GetAllAsync();
 
+        Task<IEnumerable<DisplayedProgramContentForCustomers>> GetAllForCustomersAsync(string idOfCurrentUser);
+
+        bool IsProgramBoughtByThisCustomer(int idOfProgram, string idOfCurrentUser);
+
         Task<IEnumerable<DisplayedProgramContent>> GetAllForThisCoachAsync(string idOfCurrentUser);
 
         Task<byte[]> ExportProgram(int id);
@@ -25,6 +29,10 @@ namespace FitnessApp.Core.Contracts
         Task<AddProgramModel> GetLikeAddProgramModel(int id);
 
         Task EditProgramAsync(int id, AddProgramModel model);
+
+        Task Sell(int id, string idOfCurrentUser);
+
+        Task<IEnumerable<DisplayedProgramContent>> GetAllForThisCustomerAsync(string idOfCurrentUser);
 
     }
 }
