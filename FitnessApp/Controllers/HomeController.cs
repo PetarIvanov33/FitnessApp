@@ -15,13 +15,38 @@ namespace FitnessApp.Controllers
 
         public IActionResult Index()
         {
+            if (User.Identity?.IsAuthenticated == false)
+            {
+                return RedirectToAction("Start");
+            }
+            if (User.IsInRole("Coach"))
+            {
+                return RedirectToAction("HomeForCoach");
+            }
+            if (User.IsInRole("Customer"))
+            {
+                return RedirectToAction("HomeForCustomer");
+            }
             if (User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
+            
 
             return View();
+        }
 
+        public IActionResult Start()
+        {
+            return View();
+        }
+        public IActionResult HomeForCoach()
+        {
+            return View();
+        }
+        public IActionResult HomeForCustomer()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

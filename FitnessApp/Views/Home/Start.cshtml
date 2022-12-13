@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Начална страница";
+}
+
+<style>
+    body {
+        background-image: url('https://coolwallpapers.me/picsup/5688017-dark-grey-wallpapers.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+</style>
+
+<div class="row align-items-center">
+    <div class="col fs-3 fw-bold align-items-center">
+        <div>
+            <p class="text-white">Влез и виж закупените от теб програми!</p>
+        </div>
+        <div class="center">
+        <a class="btn btn-success w-25 pt-3 pb-3 mt-3 mb-3 fw-bold" asp-area="" asp-controller="User" asp-action="Login">Влез</a>
+        </div>
+    </div>
+    <div class="col">
+        <div class="align-items-center">
+            <img src="https://thumbs.dreamstime.com/b/fitness-logo-gym-center-79664378.jpg"
+                 alt=""
+                 width="400"
+                 height="350"
+                 class="alignnone size-medium wp-image-560930" />
+        </div>
+        <p></p>
+        <h2 class="text-center text-white fw-bold">ЗАПОЧНИ СВОЯТА ТРАНСФОРМАЦИЯ СЕГА!</h2>
+        <p class="text-center text-white fw-bold">Името ми е Петър Иванов и съм тук за да те науча как да постигнеш максимални резултати по един по-приятен и устойчив начин! Мисията ми е да помагам на хората да се превърнат в най-добрата версия на себе си чрез воденето на един здравословен, активен, и в крайна сметка, ефективен начин на живот защото това не само, че ще им помогне да постигнат тялото, което винаги са желали, но също така ще ги направи по-силни физически и психически, по-дисциплинирани, уверени и продуктивни във всяка една област от живота. Фитнеса промени моят живот за добро – вярвам, че ще промени и твоят!</p>
+    </div>
+    <div class="col fs-3 fw-bold align-items-center">
+        <div>
+            <p class="text-white">Регистрирай се и получи достъп до всички статии и програми!</p>
+        </div>
+        <div class="container">
+            <div class="center">
+            <a class="btn btn-danger w-50 pt-3 pb-3 mt-3 mb-3 fw-bold" asp-area="" asp-controller="User"
+           asp-action="Register">Регистрирай се</a>
+            </div>
+         </div>
+    </div>
+</div>

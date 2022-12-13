@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Начална страница";
+}
+
+<style>
+    body {
+        background-image: url('https://coolwallpapers.me/picsup/5688017-dark-grey-wallpapers.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+</style>
+
+<div class="row align-items-center">
+    <div class="col fs-3 fw-bold align-items-center">
+        <div>
+            <p class="text-white">Статии</p>
+        </div>
+        <a class="btn btn-primary text-center btn-lg text-black fw-bold" asp-area="" asp-controller="Article" asp-action="All">Всички статии</a>
+    </div>
+    <div class="col">
+        <hr />
+        <img src="https://thumbs.dreamstime.com/b/fitness-logo-gym-center-79664378.jpg"
+             alt=""
+             width="400"
+             height="350"
+             class="alignnone size-medium wp-image-560930" />
+        <p></p>
+        <h2 class="text-center text-white fw-bold">Добре дошли!</h2>
+    </div>
+    <div class="col fs-3 fw-bold align-items-center">
+        <div>
+            <p class="text-white">Програми</p>
+        </div>
+        <a class="btn btn-primary text-center btn-lg text-black fw-bold" asp-area="" asp-controller="Program" asp-action="AllForCustomers">Всички програми</a>
+        <h3> </h3>
+        <a class="btn btn-primary text-center btn-lg text-black fw-bold" asp-area="" asp-controller="Program" asp-action="AllForThisCustomer">Закупени програми</a>
+    </div>
+</div>

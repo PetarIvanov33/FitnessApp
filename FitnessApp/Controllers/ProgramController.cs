@@ -137,7 +137,7 @@ namespace FitnessApp.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]//[Authorize(Roles = "Customer")]
+        [AllowAnonymous]
         public async Task<IActionResult> Sell(int id)
         {
             if (this.User?.Identity != null && this.User.IsInRole("Customer"))
