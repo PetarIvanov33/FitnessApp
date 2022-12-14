@@ -25,5 +25,6 @@ Test accounts:
 
 Тhe project will have minor changes in the coming days
 
+# Infrastructure
 ![Infrastructure](https://user-images.githubusercontent.com/118682433/207471154-165adaaa-d6fa-4787-a1df-46107f9c38ff.png)
 
