@@ -62,7 +62,14 @@ namespace FitnessApp.Core.Services
 
         public async Task DeleteProgram(int id)
         {
+            var customerPrograms = await repo.All<CustomerProgram>()
+                .Where(x => x.ProgramId == id)
+                .ToListAsync();
+
+            repo.DeleteRange<CustomerProgram>(customerPrograms);
+
             await repo.DeleteAsync<Program>(id);
+
             await repo.SaveChangesAsync();
         }
 

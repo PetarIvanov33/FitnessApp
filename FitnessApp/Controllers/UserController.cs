@@ -1,4 +1,5 @@
-﻿using FitnessApp.Infrastructure.Data.Common;
+﻿using FitnessApp.Core.Contracts;
+using FitnessApp.Infrastructure.Data.Common;
 using FitnessApp.Infrastructure.Data.Enities;
 using FitnessApp.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +10,7 @@ namespace FitnessApp.Controllers
 {
     public class UserController : Controller
     {
-        private readonly IRepository repo;
+        private readonly ICoachesAndCustomersService coachesAndCustomersService;
 
         private readonly UserManager<User> userManager;
 
@@ -18,11 +19,11 @@ namespace FitnessApp.Controllers
         public UserController(
             UserManager<User> _userManager,
             SignInManager<User> _signInManager,
-            IRepository _repo)
+            ICoachesAndCustomersService _coachesAndCustomersService)
         {
             userManager = _userManager;
             signInManager = _signInManager;
-            repo = _repo;
+            coachesAndCustomersService = _coachesAndCustomersService;
         }
 
         [HttpGet]
@@ -63,18 +64,19 @@ namespace FitnessApp.Controllers
 
             await userManager.AddToRoleAsync(user, "Customer");
 
-            var customer = new Customer()
-            {
-                UserId = user.Id,
-            };
+            //var customer = new Customer()
+            //{
+            //    UserId = user.Id,
+            //};
 
-            await repo.AddAsync(customer);
+            //await repo.AddAsync(customer);
 
 
             if (result.Succeeded)
             {
-                await repo.AddAsync(customer);
-                await repo.SaveChangesAsync();
+                //await repo.AddAsync(customer);
+                //await repo.SaveChangesAsync();
+                await coachesAndCustomersService.AddCustomer(user.Id);
                 return RedirectToAction("Login", "User");
             }
 

@@ -27,12 +27,9 @@ builder.Services.AddDefaultIdentity<User>(options => {
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IRepository, Repository>();
-
-//builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-//builder.Services.AddHttpContextAccessor();
-
 builder.Services.AddScoped<IArticlesService, ArticlesService>();
 builder.Services.AddScoped<IProgramsService, ProgramsService>();
+builder.Services.AddScoped<ICoachesAndCustomersService, CoachesAndCustomersService>();
 
 
 var app = builder.Build();

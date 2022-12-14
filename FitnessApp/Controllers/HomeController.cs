@@ -31,7 +31,6 @@ namespace FitnessApp.Controllers
             {
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
-            
 
             return View();
         }

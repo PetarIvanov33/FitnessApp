@@ -1,4 +1,5 @@
 ﻿using FitnessApp.Areas.Admin.Models;
+using FitnessApp.Core.Contracts;
 using FitnessApp.Infrastructure.Data.Common;
 using FitnessApp.Infrastructure.Data.Enities;
 using FitnessApp.Models;
@@ -10,16 +11,16 @@ namespace FitnessApp.Areas.Admin.Controllers
 {
     public class CoachController : BaseController
     {
-        private readonly IRepository repo;
+        private readonly ICoachesAndCustomersService coachesAndCustomersService;
 
         private readonly UserManager<User> userManager;
 
         public CoachController(
             UserManager<User> _userManager,
-            IRepository _repo)
+            ICoachesAndCustomersService _coachesAndCustomersService)
         {
             userManager = _userManager;
-            repo = _repo;
+            coachesAndCustomersService = _coachesAndCustomersService;
         }
 
         [HttpGet]
@@ -53,18 +54,19 @@ namespace FitnessApp.Areas.Admin.Controllers
 
             await userManager.AddToRoleAsync(user, "Coach");
 
-            var coach = new Coach()
-            {
-                UserId = user.Id,
-            };
+            //var coach = new Coach()
+            //{
+            //    UserId = user.Id,
+            //};
 
-            await repo.AddAsync(coach);
+            //await repo.AddAsync(coach);
 
 
             if (result.Succeeded)
             {
-                await repo.AddAsync(coach);
-                await repo.SaveChangesAsync();
+                //await repo.AddAsync(coach);
+                //await repo.SaveChangesAsync();
+                await coachesAndCustomersService.AddCoach(user.Id);
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
 
