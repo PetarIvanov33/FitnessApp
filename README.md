@@ -20,6 +20,11 @@ Test accounts:
  •	Username: client2 => Password: client_2 (in Customer role)
  
  •	Username: admin1 => Password: admin_1 (in Admin role)
+ 
+ In order to be able to test all the functionality of the project, training programs must be added, because it is not seeded!
 
 Тhe project will have minor changes in the coming days
+
+# Infrastructure
+![Infrastructure](https://user-images.githubusercontent.com/118682433/207471154-165adaaa-d6fa-4787-a1df-46107f9c38ff.png)
 
