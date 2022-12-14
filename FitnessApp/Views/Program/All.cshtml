@@ -17,11 +17,25 @@
         }
 </style>
 
-
-
 <h1 class="text-center fw-bolder text-white">@ViewBag.Title</h1>
 <hr />
 
+
+@if(Model.Count() < 1)
+{
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <hr />
+    <div>
+         <h1 class="text-white text-center fw-bold">Все още няма качени програми!</h1>
+    </div>
+          
+}
+else
+{
 <div class="text-center row">
     @foreach (var program in Model)
     {
@@ -70,3 +84,4 @@
         </div>
     }
 </div>
+}

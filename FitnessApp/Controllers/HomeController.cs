@@ -1,4 +1,5 @@
 ﻿using FitnessApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -39,19 +40,32 @@ namespace FitnessApp.Controllers
         {
             return View();
         }
+        [Authorize(Roles ="Coach")]
         public IActionResult HomeForCoach()
         {
             return View();
         }
+        [Authorize(Roles = "Customer")]
         public IActionResult HomeForCustomer()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+
+        public IActionResult Error(int? statusCode = null)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (statusCode.HasValue)
+            {
+                if (statusCode == 404)
+                {
+                    var viewName = statusCode.ToString();
+                    return View(viewName);
+                }
+            }
+
+            return View();
         }
+
+       
     }
 }

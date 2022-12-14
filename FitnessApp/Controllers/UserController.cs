@@ -63,19 +63,9 @@ namespace FitnessApp.Controllers
             var result = await userManager.CreateAsync(user, model.Password);
 
             await userManager.AddToRoleAsync(user, "Customer");
-
-            //var customer = new Customer()
-            //{
-            //    UserId = user.Id,
-            //};
-
-            //await repo.AddAsync(customer);
-
-
+         
             if (result.Succeeded)
-            {
-                //await repo.AddAsync(customer);
-                //await repo.SaveChangesAsync();
+            {             
                 await coachesAndCustomersService.AddCustomer(user.Id);
                 return RedirectToAction("Login", "User");
             }

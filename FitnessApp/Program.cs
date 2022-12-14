@@ -31,6 +31,12 @@ builder.Services.AddScoped<IArticlesService, ArticlesService>();
 builder.Services.AddScoped<IProgramsService, ProgramsService>();
 builder.Services.AddScoped<ICoachesAndCustomersService, CoachesAndCustomersService>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/User/Login";
+    options.LogoutPath = "/User/Logout";
+});
+
 
 var app = builder.Build();
 
@@ -45,6 +51,8 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

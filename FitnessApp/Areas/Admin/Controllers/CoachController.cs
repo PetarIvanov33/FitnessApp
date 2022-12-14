@@ -53,19 +53,9 @@ namespace FitnessApp.Areas.Admin.Controllers
             var result = await userManager.CreateAsync(user, model.Password);
 
             await userManager.AddToRoleAsync(user, "Coach");
-
-            //var coach = new Coach()
-            //{
-            //    UserId = user.Id,
-            //};
-
-            //await repo.AddAsync(coach);
-
-
+            
             if (result.Succeeded)
-            {
-                //await repo.AddAsync(coach);
-                //await repo.SaveChangesAsync();
+            {             
                 await coachesAndCustomersService.AddCoach(user.Id);
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
