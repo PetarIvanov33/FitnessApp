@@ -1,0 +1,22 @@
+﻿@model ErrorViewModel
+@{
+    ViewBag.Title = "Забранен достъп";
+}
+
+<style>
+    body {
+        background-image: url('https://coolwallpapers.me/picsup/5688017-dark-grey-wallpapers.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+</style>
+
+<br />
+<br />
+<br />
+<h1 class="text-danger text-center fw-bold">Намате достъп до тази страница!</h1>
+<br />
+<div class="mt-4 p-5 text-center">
+    <a class="btn btn-primary text-center btn-lg text-black fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Върнете се към началната страница!</a>
+</div>

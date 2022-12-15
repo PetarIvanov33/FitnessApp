@@ -51,6 +51,9 @@ namespace FitnessApp.Controllers
             return View();
         }
 
+        [Route("Error/AccessDenied")]
+        public IActionResult AccessDenied() => View();
+
 
         public IActionResult Error(int? statusCode = null)
         {
