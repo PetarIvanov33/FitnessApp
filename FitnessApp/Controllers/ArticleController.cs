@@ -73,9 +73,16 @@ namespace FitnessApp.Controllers
         [HttpGet]
         public async Task<IActionResult> AllForThisCoach()
         {
-            var model = await articlesService.GetAllForThisCoachAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            try
+            {
+                var model = await articlesService.GetAllForThisCoachAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             return View(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
 
@@ -87,8 +94,14 @@ namespace FitnessApp.Controllers
            
             if (User.Identity.IsAuthenticated)
             {
-                return View(await articlesService.GetAllForThisArticle(id));
-
+                try
+                {
+                    return View(await articlesService.GetAllForThisArticle(id));
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }
             }
             else
             {
@@ -99,7 +112,14 @@ namespace FitnessApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            return View(await articlesService.GetLikeAddArticleModel(id));
+            try
+            {
+                return View(await articlesService.GetLikeAddArticleModel(id));
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
@@ -131,9 +151,16 @@ namespace FitnessApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            await articlesService.DeleteArticle(id);
+            try
+            {
+                await articlesService.DeleteArticle(id);
 
-            return RedirectToAction("All");
+                return RedirectToAction("All");
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
     }
 }

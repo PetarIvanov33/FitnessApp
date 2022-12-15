@@ -234,13 +234,15 @@ namespace FitnessApp.Core.Services
                 .ThenInclude(x => x.User)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            return new AddProgramModel()
+            var programModel = new AddProgramModel()
             {
                 Title = program.Title,
                 ImageURL = program.ImageURL,
+                CategoryId = program.CategoryId,
                 Price = program.Price,
                 Categories = await GetCategoryAsync(),
             };
+            return programModel;
         }
 
         public bool IsProgramBoughtByThisCustomer(int idOfProgram, string idOfCurrentUser)

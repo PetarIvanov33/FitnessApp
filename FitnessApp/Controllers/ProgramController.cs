@@ -63,7 +63,15 @@ namespace FitnessApp.Controllers
         [Authorize(Roles = "Coach, Admin")]
         public async Task<IActionResult> Edit(int id)
         {
-            return View(await programsService.GetLikeAddProgramModel(id));
+            try
+            {
+                var model = await programsService.GetLikeAddProgramModel(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
@@ -115,25 +123,41 @@ namespace FitnessApp.Controllers
         [Authorize(Roles = "Coach, Admin")]
         public async Task<IActionResult> AllForThisCoach()
         {
-            var model = await programsService.GetAllForThisCoachAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            try
+            {
+                var model = await programsService.GetAllForThisCoachAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             return View(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet]
         [Authorize(Roles = "Coach, Admin, Customer")]
         public async Task<FileResult> Export(int id) 
         {
-            return File(await programsService.ExportProgram(id), "application/vnd.ms-word", "program.doc");
+            var programContent = await programsService.ExportProgram(id);
+           
+            return File(programContent, "application/vnd.ms-word", "program.doc");        
         }
 
         [HttpPost]
         [Authorize(Roles = "Coach, Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            await programsService.DeleteProgram(id);
+            try
+            {
+                await programsService.DeleteProgram(id);
 
             return RedirectToAction("All");
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
@@ -157,9 +181,16 @@ namespace FitnessApp.Controllers
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> AllForThisCustomer()
         {
-            var model = await programsService.GetAllForThisCustomerAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            try
+            {
+                var model = await programsService.GetAllForThisCustomerAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             return View(model);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
     }
 }
