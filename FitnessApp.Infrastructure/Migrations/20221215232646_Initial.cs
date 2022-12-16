@@ -208,14 +208,99 @@ namespace FitnessApp.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Articles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    ImageURL = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Articles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Articles_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Articles_Coaches_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Coaches",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Programs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ImageURL = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    ContentFileName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    ContentFileType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Content = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Programs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Programs_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Programs_Coaches_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Coaches",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomersPrograms",
+                columns: table => new
+                {
+                    ProgramId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomersPrograms", x => new { x.ProgramId, x.CustomerId });
+                    table.ForeignKey(
+                        name: "FK_CustomersPrograms_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CustomersPrograms_Programs_ProgramId",
+                        column: x => x.ProgramId,
+                        principalTable: "Programs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "42196e3c-e72a-4778-994f-36c85380e060", "c9885a3f-327b-4f4f-a9db-5e81e9fc3e83", "Coach", "COACH" },
-                    { "9b325984-c63f-4dec-a00b-eeaab3d34035", "8f9453f6-272a-4543-aa83-5b07d0a3183e", "Customer", "CUSTOMER" },
-                    { "b4656095-c561-4bfa-a5ad-08f7678af1bf", "a4df4dca-e4f9-4988-b4d0-7f0671f02087", "Admin", "ADMIN" }
+                    { "42196e3c-e72a-4778-994f-36c85380e060", "25131868-1ac8-4825-a46f-c876601d6c2f", "Coach", "COACH" },
+                    { "9b325984-c63f-4dec-a00b-eeaab3d34035", "4132b12d-9a43-4980-85eb-95dd594480d8", "Customer", "CUSTOMER" },
+                    { "b4656095-c561-4bfa-a5ad-08f7678af1bf", "2aa65b44-8acd-43e2-9083-3f306e4c7753", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -223,11 +308,11 @@ namespace FitnessApp.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Age", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "30b99904-02f5-4465-87a9-f7f12958029a", 0, 33, "5dc3917c-396b-4bea-a1a2-83458fff9bfc", "admin1@mail.com", false, "Petar", "Ivanov", false, null, "ADMIN1@MAIL.COM", "ADMIN1", "AQAAAAEAACcQAAAAEJxQSgcmDjI7IFVG+my9YhwDvh/3MwNnmAzHRT1gYVt3Pk9niGLEcqm+0XLBCLgjqw==", "0884810188", false, "e941f161-d3a1-4180-a3c3-11b3dd1e9156", false, "admin1" },
-                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, 25, "2ba3cc4b-3aea-444f-bb39-2093ef8d3d91", "coach1@mail.com", false, "Stanislav", "Chakurov", false, null, "COACH@MAIL.COM", "COACH1", "AQAAAAEAACcQAAAAEPcij06ACPEdX1DUGFH82Q9ILCbFpKuWS9qI8xdogIKlME9xQSPOacZxByII0TEWSQ==", "0123456789", false, "3007b231-7b93-49ae-9c3d-dd144be7112c", false, "coach1" },
-                    { "e4b69fce-458e-4234-be1d-852bebf15846", 0, 30, "2aa59338-de18-4b55-a553-26953f8b7af1", "coach2@mail.com", false, "Nikola", "Tomov", false, null, "COACH2@MAIL.COM", "COACH2", "AQAAAAEAACcQAAAAEOGeRH1XQhD8WVrtdygO8HxKAHn7GBbx8FFiqqwLnVqVqhDgDQ6F9BPuL+TCXe67EQ==", "0222222222", false, "82bb6c56-5b89-4580-9a28-46efcf345557", false, "coach2" },
-                    { "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2", 0, 22, "47145e0e-53ea-42f6-8286-82b694472676", "client2@mail.com", false, "Georgi", "Shishkov", false, null, "CLIENT2@MAIL.COM", "CLIENT2", "AQAAAAEAACcQAAAAELEVT069MF9PbQ9GrvmhLyq2Xa2jKPtD5YTiPpblMhGbgjNC+qgHINDrRG0sHlNBUg==", "0256810188", false, "1bf0f111-769a-48bd-9c75-eb5519454dc5", false, "client2" },
-                    { "f17f9cb5-f8ca-4462-85ff-ca3f59136189", 0, 29, "4503b717-0bd7-4640-8acf-93d8ba4293c0", "client1@mail.com", false, "Kaloqn", "Cholakov", false, null, "CLIENT1@MAIL.COM", "CLIENT1", "AQAAAAEAACcQAAAAENCZKZyfJb7VKULJV2EHm9rIQgeQfPlWHOulEbiW+RtxZ/HfsRlRmynK7QqJzPlp3A==", "0885554888", false, "22059e5a-4687-446c-ba34-e4add1ef9333", false, "client1" }
+                    { "30b99904-02f5-4465-87a9-f7f12958029a", 0, 33, "04ca3693-54ef-4ae1-a309-4755d4fb036d", "admin1@mail.com", false, "Petar", "Ivanov", false, null, "ADMIN1@MAIL.COM", "ADMIN1", "AQAAAAEAACcQAAAAEBP6ydd+Og58Cw8LzF81cjb8LS/r1HjATsgSdTpVgPL45chhftQI6Spb4+AARw9dfA==", "0884810188", false, "46ef934f-5ef3-4b6a-90a7-2616f2b7c190", false, "admin1" },
+                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, 25, "f4c17445-00be-48d5-9727-8c7f9fcd0de3", "coach1@mail.com", false, "Stanislav", "Chakurov", false, null, "COACH@MAIL.COM", "COACH1", "AQAAAAEAACcQAAAAEPV51znMl4AS6FNBc0cNWwULYjc+csoE6K2MW2ugXgKHELe8iaMDOtCVuwaNC6GJ6A==", "0123456789", false, "3b5ba587-d382-4fdb-a780-c51f1f411dce", false, "coach1" },
+                    { "e4b69fce-458e-4234-be1d-852bebf15846", 0, 30, "5b7c3bb7-c725-4b4c-ad3c-b6079f4cce89", "coach2@mail.com", false, "Nikola", "Tomov", false, null, "COACH2@MAIL.COM", "COACH2", "AQAAAAEAACcQAAAAEEFC0fqMmdK05LfFgUTWuToEDyKaytzSrUVLdRuAui3kpj4d0R/ruxJadSBG4pV90w==", "0222222222", false, "6aad8c08-b9cc-46a4-b3fd-68821bfaf6ab", false, "coach2" },
+                    { "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2", 0, 22, "73427a2c-76df-49ec-afaf-b2e4a4c7cca9", "client2@mail.com", false, "Georgi", "Shishkov", false, null, "CLIENT2@MAIL.COM", "CLIENT2", "AQAAAAEAACcQAAAAEM+27nGlaIgWBmwWLIBtQ7h9p0SvE4KS8qs2Zm7bK2ezu38GhfpJFMFCpk8wBvvcWw==", "0256810188", false, "210a316e-f26b-405e-8def-89923361de02", false, "client2" },
+                    { "f17f9cb5-f8ca-4462-85ff-ca3f59136189", 0, 29, "5c60ad92-ac6e-4f5e-9a09-2ccb3310e778", "client1@mail.com", false, "Kaloqn", "Cholakov", false, null, "CLIENT1@MAIL.COM", "CLIENT1", "AQAAAAEAACcQAAAAECBzCPLuK50GR+K2DJHOzOj1Oo75F2fjKs0UufBdQn2QgJdWao5Bpv8RR31zYLC7+g==", "0885554888", false, "e8f49b11-b886-43e2-a756-cc0600905e76", false, "client1" }
                 });
 
             migrationBuilder.InsertData(
@@ -239,7 +324,8 @@ namespace FitnessApp.Infrastructure.Migrations
                     { 2, "Olimpic weightlifting" },
                     { 3, "Streetlifting" },
                     { 4, "Sprint running  brat" },
-                    { 5, "Long-distance running" }
+                    { 5, "Long-distance running" },
+                    { 6, "Functional Bodybuilding" }
                 });
 
             migrationBuilder.InsertData(
@@ -271,6 +357,21 @@ namespace FitnessApp.Infrastructure.Migrations
                     { 1, "f17f9cb5-f8ca-4462-85ff-ca3f59136189" },
                     { 2, "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Articles",
+                columns: new[] { "Id", "AuthorId", "CategoryId", "Content", "ImageURL", "Title" },
+                values: new object[] { 1, 1, 1, "Мускулите, използвани от това упражнение, са главно бицепсите и трицепсите, които повдигат екипировката, четворките, глутеус максимус, мускулите на бедрата и разтегателите на долната част на гърба. Мъртвата тяга също действа на синергичните мускули, особено тези на бедрото и трицепсите на прасеца. За поддържане на баланса, използват се и други мускули, като корема, трапец, делтоиди, раменни шапки и мускули на ръцете. Когато всички тези мускули работят, сами ще се убедите, че мъртвата тяга е пълно упражнение за развитие на цялото тяло. Мъртвата тяга е много полезна за тялото. Повишава издръжливостта на тялото. Също така помага за подобряване на силата на координация и баланс на гърба. Флексии също ще бъде отлично за артикулация.", "https://trenirai.bg/wp-content/uploads/2019/02/deadhlift.jpg", "Ползи от МЪРТВАТА ТЯГА" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Articles_AuthorId",
+                table: "Articles",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Articles_CategoryId",
+                table: "Articles",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -320,10 +421,28 @@ namespace FitnessApp.Infrastructure.Migrations
                 name: "IX_Customers_UserId",
                 table: "Customers",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomersPrograms_CustomerId",
+                table: "CustomersPrograms",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Programs_AuthorId",
+                table: "Programs",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Programs_CategoryId",
+                table: "Programs",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Articles");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -340,16 +459,22 @@ namespace FitnessApp.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "CustomersPrograms");
 
             migrationBuilder.DropTable(
-                name: "Coaches");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Programs");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Coaches");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

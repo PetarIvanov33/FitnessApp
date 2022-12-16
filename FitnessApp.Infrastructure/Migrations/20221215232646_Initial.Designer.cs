@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221129192537_AddArticles")]
-    partial class AddArticles
+    [Migration("20221215232646_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,7 +68,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             CategoryId = 1,
                             Content = "Мускулите, използвани от това упражнение, са главно бицепсите и трицепсите, които повдигат екипировката, четворките, глутеус максимус, мускулите на бедрата и разтегателите на долната част на гърба. Мъртвата тяга също действа на синергичните мускули, особено тези на бедрото и трицепсите на прасеца. За поддържане на баланса, използват се и други мускули, като корема, трапец, делтоиди, раменни шапки и мускули на ръцете. Когато всички тези мускули работят, сами ще се убедите, че мъртвата тяга е пълно упражнение за развитие на цялото тяло. Мъртвата тяга е много полезна за тялото. Повишава издръжливостта на тялото. Също така помага за подобряване на силата на координация и баланс на гърба. Флексии също ще бъде отлично за артикулация.",
                             ImageURL = "https://trenirai.bg/wp-content/uploads/2019/02/deadhlift.jpg",
-                            Title = "Поузи от МЪРТВАТА ТЯГА"
+                            Title = "Ползи от МЪРТВАТА ТЯГА"
                         });
                 });
 
@@ -114,6 +114,11 @@ namespace FitnessApp.Infrastructure.Migrations
                         {
                             Id = 5,
                             Name = "Long-distance running"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Functional Bodybuilding"
                         });
                 });
 
@@ -177,6 +182,71 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = 2,
                             UserId = "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2"
                         });
+                });
+
+            modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.CustomerProgram", b =>
+                {
+                    b.Property<int?>("ProgramId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProgramId", "CustomerId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("CustomersPrograms");
+                });
+
+            modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Program", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Content")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ContentFileName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ContentFileType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Programs");
                 });
 
             modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.User", b =>
@@ -266,7 +336,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
                             Age = 25,
-                            ConcurrencyStamp = "0dcf2c4f-b587-47e2-8830-2c57f23de54f",
+                            ConcurrencyStamp = "f4c17445-00be-48d5-9727-8c7f9fcd0de3",
                             Email = "coach1@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Stanislav",
@@ -274,10 +344,10 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "COACH@MAIL.COM",
                             NormalizedUserName = "COACH1",
-                            PasswordHash = "AQAAAAEAACcQAAAAECP/wo4Xb6UXRE8hkph6ZX1H766NCW0y2nFTOXqqkJUFQq30Rjk2VIIzD2epakjhBw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPV51znMl4AS6FNBc0cNWwULYjc+csoE6K2MW2ugXgKHELe8iaMDOtCVuwaNC6GJ6A==",
                             PhoneNumber = "0123456789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d6833584-f282-4bac-b52e-69e4c7187959",
+                            SecurityStamp = "3b5ba587-d382-4fdb-a780-c51f1f411dce",
                             TwoFactorEnabled = false,
                             UserName = "coach1"
                         },
@@ -286,7 +356,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "e4b69fce-458e-4234-be1d-852bebf15846",
                             AccessFailedCount = 0,
                             Age = 30,
-                            ConcurrencyStamp = "7f37f521-e6bc-443d-877c-35ab2b6fedd9",
+                            ConcurrencyStamp = "5b7c3bb7-c725-4b4c-ad3c-b6079f4cce89",
                             Email = "coach2@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Nikola",
@@ -294,10 +364,10 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "COACH2@MAIL.COM",
                             NormalizedUserName = "COACH2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHAEqRnnMcS15VDoOsUWyJTB3HMMbMOfWdNplofvd5POAPilk3BvwGT0siDCRAJ9Mg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEFC0fqMmdK05LfFgUTWuToEDyKaytzSrUVLdRuAui3kpj4d0R/ruxJadSBG4pV90w==",
                             PhoneNumber = "0222222222",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1fe8b14e-aa29-4689-82cb-acfbea13429f",
+                            SecurityStamp = "6aad8c08-b9cc-46a4-b3fd-68821bfaf6ab",
                             TwoFactorEnabled = false,
                             UserName = "coach2"
                         },
@@ -306,7 +376,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "30b99904-02f5-4465-87a9-f7f12958029a",
                             AccessFailedCount = 0,
                             Age = 33,
-                            ConcurrencyStamp = "fbea6942-7925-4b63-8a92-18fb20b959ae",
+                            ConcurrencyStamp = "04ca3693-54ef-4ae1-a309-4755d4fb036d",
                             Email = "admin1@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Petar",
@@ -314,10 +384,10 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN1@MAIL.COM",
                             NormalizedUserName = "ADMIN1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIyayEfTSGxCosUW4Am1fFx8GMIphq64WPWjoFasHiv63YoTO1A6eW17x4f+eMF2DA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBP6ydd+Og58Cw8LzF81cjb8LS/r1HjATsgSdTpVgPL45chhftQI6Spb4+AARw9dfA==",
                             PhoneNumber = "0884810188",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6fee6584-072c-4d07-9c06-44650a15c307",
+                            SecurityStamp = "46ef934f-5ef3-4b6a-90a7-2616f2b7c190",
                             TwoFactorEnabled = false,
                             UserName = "admin1"
                         },
@@ -326,7 +396,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "f17f9cb5-f8ca-4462-85ff-ca3f59136189",
                             AccessFailedCount = 0,
                             Age = 29,
-                            ConcurrencyStamp = "628b901a-a0b3-4442-9bce-770ef680bb0d",
+                            ConcurrencyStamp = "5c60ad92-ac6e-4f5e-9a09-2ccb3310e778",
                             Email = "client1@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Kaloqn",
@@ -334,10 +404,10 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENT1@MAIL.COM",
                             NormalizedUserName = "CLIENT1",
-                            PasswordHash = "AQAAAAEAACcQAAAAELrheIQBOYEbSfv24z7CxkNihU3tMHFYycRjPGCCo8xqnBsu78MgnIBy4Pbcdqn19w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECBzCPLuK50GR+K2DJHOzOj1Oo75F2fjKs0UufBdQn2QgJdWao5Bpv8RR31zYLC7+g==",
                             PhoneNumber = "0885554888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d47be825-ef1a-45f3-a77a-2086671dbe20",
+                            SecurityStamp = "e8f49b11-b886-43e2-a756-cc0600905e76",
                             TwoFactorEnabled = false,
                             UserName = "client1"
                         },
@@ -346,7 +416,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2",
                             AccessFailedCount = 0,
                             Age = 22,
-                            ConcurrencyStamp = "f4488e3b-4530-4fb2-8197-3005cd5058f4",
+                            ConcurrencyStamp = "73427a2c-76df-49ec-afaf-b2e4a4c7cca9",
                             Email = "client2@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Georgi",
@@ -354,10 +424,10 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENT2@MAIL.COM",
                             NormalizedUserName = "CLIENT2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK4hjSHRwUAH226Um9sr8Ysvu+foaK5mlzFdyQcCE9os3WOn40tDMPeWHlpRH4JJbw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM+27nGlaIgWBmwWLIBtQ7h9p0SvE4KS8qs2Zm7bK2ezu38GhfpJFMFCpk8wBvvcWw==",
                             PhoneNumber = "0256810188",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d66f295e-dfb5-4348-86e9-7063c728e020",
+                            SecurityStamp = "210a316e-f26b-405e-8def-89923361de02",
                             TwoFactorEnabled = false,
                             UserName = "client2"
                         });
@@ -393,21 +463,21 @@ namespace FitnessApp.Infrastructure.Migrations
                         new
                         {
                             Id = "b4656095-c561-4bfa-a5ad-08f7678af1bf",
-                            ConcurrencyStamp = "07a9e7ed-ee0f-46fa-b831-f3106482ec9c",
+                            ConcurrencyStamp = "2aa65b44-8acd-43e2-9083-3f306e4c7753",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "42196e3c-e72a-4778-994f-36c85380e060",
-                            ConcurrencyStamp = "77e1d4be-1010-4e75-b5cb-3ec1fd1fce31",
+                            ConcurrencyStamp = "25131868-1ac8-4825-a46f-c876601d6c2f",
                             Name = "Coach",
                             NormalizedName = "COACH"
                         },
                         new
                         {
                             Id = "9b325984-c63f-4dec-a00b-eeaab3d34035",
-                            ConcurrencyStamp = "8ff0be63-f394-40ba-9643-bd1dd86ee380",
+                            ConcurrencyStamp = "4132b12d-9a43-4980-85eb-95dd594480d8",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -591,6 +661,44 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.CustomerProgram", b =>
+                {
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.Customer", "Customer")
+                        .WithMany("CustomerPrograms")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.Program", "Program")
+                        .WithMany("CustomerPrograms")
+                        .HasForeignKey("ProgramId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Program");
+                });
+
+            modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Program", b =>
+                {
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.Coach", "Author")
+                        .WithMany("Programs")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.Category", "Category")
+                        .WithMany("Programs")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -645,11 +753,25 @@ namespace FitnessApp.Infrastructure.Migrations
             modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Category", b =>
                 {
                     b.Navigation("Articles");
+
+                    b.Navigation("Programs");
                 });
 
             modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Coach", b =>
                 {
                     b.Navigation("Articles");
+
+                    b.Navigation("Programs");
+                });
+
+            modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Customer", b =>
+                {
+                    b.Navigation("CustomerPrograms");
+                });
+
+            modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Program", b =>
+                {
+                    b.Navigation("CustomerPrograms");
                 });
 #pragma warning restore 612, 618
         }

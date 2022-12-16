@@ -17,10 +17,10 @@ namespace FitnessApp.Infrastructure.Data
         {
             base.OnModelCreating(builder);
 
-            foreach (var relationship in builder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
-            {
-                relationship.DeleteBehavior = DeleteBehavior.Restrict;
-            }
+            //foreach (var relationship in builder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            //{
+            //    relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            //}
 
             builder.Entity<User>(u =>
             {
@@ -37,13 +37,17 @@ namespace FitnessApp.Infrastructure.Data
             builder.Entity<CustomerProgram>()
             .HasOne<Program>(sc => sc.Program)
             .WithMany(s => s.CustomerPrograms)
-            .HasForeignKey(sc => sc.ProgramId);
+            .HasForeignKey(sc => sc.ProgramId)
+            .OnDelete(DeleteBehavior.Restrict);
 
 
             builder.Entity<CustomerProgram>()
                 .HasOne<Customer>(sc => sc.Customer)
                 .WithMany(s => s.CustomerPrograms)
-                .HasForeignKey(sc => sc.CustomerId);
+                .HasForeignKey(sc => sc.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+           
 
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
