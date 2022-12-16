@@ -32,6 +32,9 @@ namespace FitnessApp.Areas.Admin.Models
         [MaxLength(100)]
         public string LastName { get; set; } = null!;
 
+        [MaxLength(400)]
+        public string? ProfileImageURL { get; set; }
+
         [Required]
         [MinLength(3)]
         [MaxLength(15)]

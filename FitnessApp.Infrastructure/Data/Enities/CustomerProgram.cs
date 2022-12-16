@@ -13,10 +13,10 @@ namespace FitnessApp.Infrastructure.Data.Enities
         
         public int? ProgramId { get; set; }
 
-        public Program Program { get; set; }
+        public Program Program { get; set; } = null!;
 
         public int? CustomerId { get; set; }
 
-        public Customer Customer { get; set; }
+        public Customer Customer { get; set; } = null!;
     }
 }

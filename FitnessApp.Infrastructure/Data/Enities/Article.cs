@@ -25,13 +25,13 @@ namespace FitnessApp.Infrastructure.Data.Enities
         public int AuthorId { get; set; }
 
         [ForeignKey(nameof(AuthorId))]
-        public Coach Author { get; set; }
+        public Coach Author { get; set; } = null!;
 
         [Required]
         public int CategoryId { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
-        public Category Category { get; set; }
+        public Category Category { get; set; } = null!;
 
         [Required]
         public string  Content { get; set; } = null!;

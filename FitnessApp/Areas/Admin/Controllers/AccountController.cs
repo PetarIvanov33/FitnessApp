@@ -1,5 +1,6 @@
 ﻿using FitnessApp.Areas.Admin.Models;
 using FitnessApp.Core.Contracts;
+using FitnessApp.Core.Services;
 using FitnessApp.Infrastructure.Data.Common;
 using FitnessApp.Infrastructure.Data.Enities;
 using FitnessApp.Models;
@@ -9,18 +10,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessApp.Areas.Admin.Controllers
 {
-    public class CoachController : BaseController
+    public class AccountController : BaseController
     {
-        private readonly ICoachesAndCustomersService coachesAndCustomersService;
+        private readonly IAccountService accountService;
 
         private readonly UserManager<User> userManager;
 
-        public CoachController(
+        public AccountController(
             UserManager<User> _userManager,
-            ICoachesAndCustomersService _coachesAndCustomersService)
+            IAccountService _accountService)
         {
             userManager = _userManager;
-            coachesAndCustomersService = _coachesAndCustomersService;
+            accountService = _accountService;
         }
 
         [HttpGet]
@@ -49,6 +50,10 @@ namespace FitnessApp.Areas.Admin.Controllers
                 Age = model.Age
             };
 
+            if (model.ProfileImageURL != null)
+            {
+                user.ProfileImageURL = model.ProfileImageURL;
+            }
 
             var result = await userManager.CreateAsync(user, model.Password);
 
@@ -56,7 +61,7 @@ namespace FitnessApp.Areas.Admin.Controllers
             
             if (result.Succeeded)
             {             
-                await coachesAndCustomersService.AddCoach(user.Id);
+                await accountService.AddCoach(user.Id);
                 return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
 
@@ -67,6 +72,8 @@ namespace FitnessApp.Areas.Admin.Controllers
 
             return View(model);
         }
+       
+       
 
 
     }

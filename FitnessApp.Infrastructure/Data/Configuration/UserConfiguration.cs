@@ -30,6 +30,7 @@ namespace FitnessApp.Infrastructure.Data.Configuration
                 Email = "coach1@mail.com",
                 NormalizedEmail = "COACH@MAIL.COM",
                 PhoneNumber = "0123456789",
+                ProfileImageURL = "https://media-exp1.licdn.com/dms/image/C4E03AQEZzVQV_QkXxA/profile-displayphoto-shrink_800_800/0/1607428598966?e=2147483647&v=beta&t=0usI7YAARf7h56Xdo_bv6xpYtc9y7pUfD7boyRXD9jk",
                 FirstName = "Stanislav",
                 LastName = "Chakurov",
                 Age=25
@@ -48,6 +49,7 @@ namespace FitnessApp.Infrastructure.Data.Configuration
                 Email = "coach2@mail.com",
                 NormalizedEmail ="COACH2@MAIL.COM",
                 PhoneNumber = "0222222222",
+                ProfileImageURL = "https://media-exp1.licdn.com/dms/image/D4D03AQF2P7FxDvXL_w/profile-displayphoto-shrink_800_800/0/1665589049799?e=2147483647&v=beta&t=UaIubCn4CURIDtu8ZFqW--yzRz0fesLnjAeqUf_iaY0",
                 FirstName = "Nikola",
                 LastName = "Tomov",
                 Age = 30
@@ -84,8 +86,9 @@ namespace FitnessApp.Infrastructure.Data.Configuration
                 Email = "client1@mail.com",
                 NormalizedEmail = "CLIENT1@MAIL.COM",
                 PhoneNumber = "0885554888",
-                FirstName = "Kaloqn",
-                LastName = "Cholakov",
+                ProfileImageURL = "https://i.ytimg.com/vi/VpQCMU3Q0RU/maxresdefault.jpg",
+                FirstName = "Stan",
+                LastName = "Subev",
                 Age = 29
             };
 
@@ -103,8 +106,9 @@ namespace FitnessApp.Infrastructure.Data.Configuration
                 Email = "client2@mail.com",
                 NormalizedEmail = "CLIENT2@MAIL.COM",
                 PhoneNumber = "0256810188",
-                FirstName = "Georgi",
-                LastName = "Shishkov",
+                ProfileImageURL = "https://yt3.ggpht.com/ytc/AMLnZu9ZGUZqNxqW_GYK3RGSeuYNdDfqO8M6mBgpRmZjDA=s800-c-k-c0x00ffffff-no-rj",
+                FirstName = "Radostin",
+                LastName = "Kuzmanov",
                 Age = 22
             };
 

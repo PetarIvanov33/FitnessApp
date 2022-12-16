@@ -10,7 +10,7 @@ namespace FitnessApp.Controllers
 {
     public class UserController : Controller
     {
-        private readonly ICoachesAndCustomersService coachesAndCustomersService;
+        private readonly IAccountService accountService;
 
         private readonly UserManager<User> userManager;
 
@@ -19,11 +19,11 @@ namespace FitnessApp.Controllers
         public UserController(
             UserManager<User> _userManager,
             SignInManager<User> _signInManager,
-            ICoachesAndCustomersService _coachesAndCustomersService)
+            IAccountService _accountService)
         {
             userManager = _userManager;
             signInManager = _signInManager;
-            coachesAndCustomersService = _coachesAndCustomersService;
+            accountService = _accountService;
         }
 
         [HttpGet]
@@ -55,10 +55,14 @@ namespace FitnessApp.Controllers
                 UserName = model.UserName,
                 PhoneNumber = model.PhoneNumber,
                 FirstName = model.FirstName,
-                LastName = model.LastName,
+                LastName = model.LastName,               
                 Age = model.Age
             };
 
+            if (model.ProfileImageURL != null)
+            {
+                user.ProfileImageURL = model.ProfileImageURL;
+            }
 
             var result = await userManager.CreateAsync(user, model.Password);
 
@@ -66,7 +70,7 @@ namespace FitnessApp.Controllers
          
             if (result.Succeeded)
             {             
-                await coachesAndCustomersService.AddCustomer(user.Id);
+                await accountService.AddCustomer(user.Id);
                 return RedirectToAction("Login", "User");
             }
 

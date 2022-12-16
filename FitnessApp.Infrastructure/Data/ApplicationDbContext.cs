@@ -29,7 +29,10 @@ namespace FitnessApp.Infrastructure.Data
                 u.Property(u => u.Email).HasMaxLength(25).IsRequired();
                 u.Property(u => u.NormalizedEmail).HasMaxLength(25);
                 u.Property(u => u.PhoneNumber).HasMaxLength(15).IsRequired();
+                u.Property(u => u.ProfileImageURL).HasDefaultValue("https://www.pngkey.com/png/detail/115-1150152_default-profile-picture-avatar-png-green.png");
             });
+
+           
 
             builder.Entity<CustomerProgram>()
                .HasKey(x => new { x.ProgramId, x.CustomerId });
@@ -72,5 +75,6 @@ namespace FitnessApp.Infrastructure.Data
 
         public DbSet<CustomerProgram> CustomersPrograms { get; set; } = null!;
 
+        
     }
 }

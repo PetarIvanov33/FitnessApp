@@ -28,13 +28,13 @@ namespace FitnessApp.Infrastructure.Data.Enities
         public int AuthorId { get; set; }
 
         [ForeignKey(nameof(AuthorId))]
-        public Coach Author { get; set; }
+        public Coach Author { get; set; } = null!;
 
         [Required]
         public int CategoryId { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
-        public Category Category { get; set; }
+        public Category Category { get; set; } = null!;
 
         [Required]
         [MaxLength(200)]
@@ -44,8 +44,9 @@ namespace FitnessApp.Infrastructure.Data.Enities
         [MaxLength(100)]
         public string ContentFileType { get; set; } = null!;
 
+        [Required]
         [MaxLength]
-        public byte[] Content { get; set; }
+        public byte[] Content { get; set; } = null!;
 
         public List<CustomerProgram> CustomerPrograms { get; set; } = new List<CustomerProgram>();
     }
