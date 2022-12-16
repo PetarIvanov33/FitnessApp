@@ -135,8 +135,7 @@ namespace FitnessApp.Core.Services
                 .Include(x => x.Author)
                 .ThenInclude(x => x.User)
                 .FirstOrDefaultAsync(x => x.Id == id_);
-
-            return new AddArticleModel()
+            var articleForEdit = new AddArticleModel()
             {
                 Title = article.Title,
                 ImageURL = article.ImageURL,
@@ -146,8 +145,9 @@ namespace FitnessApp.Core.Services
                 Categories = await GetCategoryAsync(),
 
             };
-        }
 
+            return articleForEdit;
+        }
 
     }
 }

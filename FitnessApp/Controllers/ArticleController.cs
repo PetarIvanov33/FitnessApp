@@ -114,7 +114,8 @@ namespace FitnessApp.Controllers
         {
             try
             {
-                return View(await articlesService.GetLikeAddArticleModel(id));
+                var model = await articlesService.GetLikeAddArticleModel(id);
+                return View(model);
             }
             catch (Exception)
             {
