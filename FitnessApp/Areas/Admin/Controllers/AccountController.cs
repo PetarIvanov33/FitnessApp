@@ -14,14 +14,18 @@ namespace FitnessApp.Areas.Admin.Controllers
     {
         private readonly IAccountService accountService;
 
+        private readonly IRoleService roleService;
+
         private readonly UserManager<User> userManager;
 
         public AccountController(
             UserManager<User> _userManager,
-            IAccountService _accountService)
+            IAccountService _accountService,
+            IRoleService _roleService)
         {
             userManager = _userManager;
             accountService = _accountService;
+            roleService = _roleService;
         }
 
         [HttpGet]
@@ -56,8 +60,8 @@ namespace FitnessApp.Areas.Admin.Controllers
             }
 
             var result = await userManager.CreateAsync(user, model.Password);
-
-            await userManager.AddToRoleAsync(user, "Coach");
+           
+            await roleService.AddToRole(user, "Coach");
             
             if (result.Succeeded)
             {             

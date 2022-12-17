@@ -30,6 +30,8 @@ builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IArticlesService, ArticlesService>();
 builder.Services.AddScoped<IProgramsService, ProgramsService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

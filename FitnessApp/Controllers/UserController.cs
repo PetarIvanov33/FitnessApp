@@ -14,6 +14,8 @@ namespace FitnessApp.Controllers
     {
         private readonly IAccountService accountService;
 
+        private readonly IRoleService roleService;
+
         private readonly UserManager<User> userManager;
 
         private readonly SignInManager<User> signInManager;
@@ -21,11 +23,13 @@ namespace FitnessApp.Controllers
         public UserController(
             UserManager<User> _userManager,
             SignInManager<User> _signInManager,
-            IAccountService _accountService)
+            IAccountService _accountService,
+            IRoleService _roleService)
         {
             userManager = _userManager;
             signInManager = _signInManager;
             accountService = _accountService;
+            roleService = _roleService;
         }
 
         [HttpGet]
@@ -68,7 +72,7 @@ namespace FitnessApp.Controllers
 
             var result = await userManager.CreateAsync(user, model.Password);
 
-            await userManager.AddToRoleAsync(user, "Customer");
+            await roleService.AddToRole(user, "Customer");
          
             if (result.Succeeded)
             {             
