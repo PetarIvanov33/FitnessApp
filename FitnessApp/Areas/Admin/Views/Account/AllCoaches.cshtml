@@ -3,7 +3,7 @@
 @model IEnumerable<DisplayeUsersModel>
 
 @{
-    ViewBag.Title = "ВСИЧКИ ПОТРЕБИТЕЛИ";
+    ViewBag.Title = "ВСИЧКИ ТРЕНЬОРИ";
 }
 
 
@@ -20,26 +20,22 @@
 
 
 <h1 class="text-center fw-bolder text-white">@ViewBag.Title</h1>
+<hr />
 
-<div class="mt-4 p-5 text-center">
-    <a asp-area="Admin" asp-controller="Account" asp-action="AllCoaches" class="btn btn-primary text-center btn-lg text-black fw-bold">Само треньорите</a>
-    <span class="text-white"> | </span>
-    <a asp-area="Admin" asp-controller="Account" asp-action="AllCustomers" class="btn btn-primary text-center btn-lg text-black fw-bold">Само клиентите</a>
-</div>
 
-    <div class="text-center row">
-        @foreach (var user in Model)
-        {
-            <div class="col-sm-3">
-                <div class="card col-4 ml-20" style="width: 20rem; background-color:#DCDCDC;">
-                    <div class="align-items-center">
+<div class="text-center row">
+    @foreach (var user in Model)
+    {
+        <div class="col-sm-3">
+            <div class="card col-4 ml-20" style="width: 20rem; background-color:#DCDCDC;">
+                <div class="align-items-center">
                     <img src="@user.ProfileImageURL"
                      alt=""
                      width="300"
                      height="263"
                      class="alignnone size-medium wp-image-560930" />
-                    </div>
-                    <div class="card-body">
+                </div>
+                <div class="card-body">
 
                     <h3 class="card-title mt-1">@user.Role</h3>
                     <p class="mb-0 fw-bold">Име: @user.FirstName</p>
@@ -48,10 +44,10 @@
                     <p class="mb-0 fw-bold">Потребителско име: @user.UserName</p>
                     <p class="mb-0 fw-bold">Имейл: @user.Email</p>
                     <p class="mb-0 fw-bold">Телефон: @user.PhoneNumber</p>
-                    </div>                   
                 </div>
-                <p> </p>
             </div>
-        }
-    </div>
+            <p> </p>
+        </div>
+    }
+</div>
 

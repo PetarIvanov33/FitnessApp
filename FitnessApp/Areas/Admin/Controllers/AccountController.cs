@@ -81,6 +81,22 @@ namespace FitnessApp.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AllCoaches()
+        {
+            var model = await accountService.GetAllCoaches();
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AllCustomers()
+        {
+            var model = await accountService.GetAllCustomers();
+
+            return View(model);
+        }
+
 
     }
 

@@ -42,6 +42,22 @@ namespace FitnessApp.Core.Services
             await repo.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<DisplayeUsersModel>> GetAllCoaches()
+        {
+            var users = await GetAllUsersAsync();
+            var coaches = users.Where(x => x.Role == "Coach").ToList();
+
+            return coaches;
+        }
+
+        public async Task<IEnumerable<DisplayeUsersModel>> GetAllCustomers()
+        {
+            var users = await GetAllUsersAsync();
+            var customers = users.Where(x => x.Role == "Customer").ToList();
+
+            return customers;
+        }
+
         public async Task<IEnumerable<DisplayeUsersModel>> GetAllUsersAsync()
         {
             var users = await (from user in repo.All<User>()

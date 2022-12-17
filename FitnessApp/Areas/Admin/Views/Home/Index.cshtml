@@ -13,21 +13,29 @@
 </style>
 
 <div class="align-self-stretch h-100 text-center">
-    @for(int i=0; i<5; i++)
+    @for(int i=0; i<4; i++)
     {
         <br />
     }
     <h1 class="display-4 fw-bold text-white">Добре дошли в Администрация!</h1>
+    <br />
+    <br />
  </div>
 
-<div class="mt-4 p-5 text-center">
+<div class="mt-0 p-2 text-center">
 <a asp-area="default" asp-controller="Article" asp-action="All" class="btn btn-primary text-center btn-lg text-black fw-bold">ВСИЧКИ СТАТИИ</a>
 <span class="text-white"> | </span>
 <a asp-area="default" asp-controller="Program" asp-action="All" class="btn btn-primary text-center btn-lg text-black fw-bold">ВСИЧКИ ПРОГРАМИ</a>
-<span class="text-white"> | </span>
-<a asp-area="Admin" asp-controller="Account" asp-action="AddCoach" class="btn btn-primary text-center btn-lg text-black fw-bold">ДОБАВЕТЕ ТРЕНЬОР</a>
-    <span class="text-white"> | </span>
+</div>
+<div class="mt-0 p-2 text-center">
     <a asp-area="Admin" asp-controller="Account" asp-action="AllUsers" class="btn btn-primary text-center btn-lg text-black fw-bold">ВСИЧКИ ПОТРЕБИТЕЛИ</a>
+    <span class="text-white"> | </span>
+    <a asp-area="Admin" asp-controller="Account" asp-action="AllCoaches" class="btn btn-primary text-center btn-lg text-black fw-bold">ВСИЧКИ ТРЕНЬОРИ</a>
+    <span class="text-white"> | </span>
+    <a asp-area="Admin" asp-controller="Account" asp-action="AllCustomers" class="btn btn-primary text-center btn-lg text-black fw-bold">ВСИЧКИ КЛИЕНТИ</a>
+</div>
+<div class="mt-0 p-2 text-center">
+    <a asp-area="Admin" asp-controller="Account" asp-action="AddCoach" class="btn btn-primary text-center btn-lg text-black fw-bold">ДОБАВЕТЕ ТРЕНЬОР</a>
 </div>
 
 
