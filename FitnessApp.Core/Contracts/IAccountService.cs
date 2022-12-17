@@ -13,6 +13,6 @@ namespace FitnessApp.Core.Contracts
 
         Task AddCoach(string userIdOfCoach);
 
-       
+        Task<IEnumerable<DisplayeUsersModel>> GetAllUsersAsync();
     }
 }
