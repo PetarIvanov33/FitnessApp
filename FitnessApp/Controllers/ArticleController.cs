@@ -69,7 +69,7 @@ namespace FitnessApp.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
+      
         [HttpGet]
         public async Task<IActionResult> AllForThisCoach()
         {

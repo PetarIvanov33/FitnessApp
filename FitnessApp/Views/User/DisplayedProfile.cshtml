@@ -33,5 +33,11 @@
         <h2>Потребителско име: @Model.UserName</h2>
         <h2>Имейл: @Model.Email</h2>
         <h2>Телефонен номер: @Model.PhoneNumber</h2>
+        @if (this.User?.Identity != null && this.User.IsInRole("Customer"))
+                {
+            <div class="d-grid gap-2">
+                <a asp-controller="User" asp-action="DeleteCustomer" class="btn btn-danger fw-bold" onclick="return confirm('Това деиствие ще изтрие акаунтът Ви завинаги!')">Изтриване на профила ми</a>
+            </div>
+                }
     </article>
 </div>

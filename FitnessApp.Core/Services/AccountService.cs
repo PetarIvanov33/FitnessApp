@@ -88,5 +88,18 @@ namespace FitnessApp.Core.Services
 
             return customers.First(x => x.UserId == idOfCurrentUser);
         }
+
+        public async Task DeleteCustomer(string idOfCurrentUser)
+        {           
+            var customer = await repo.All<Customer>()
+                .Include(x => x.CustomerPrograms)
+                .FirstOrDefaultAsync(x => x.UserId == idOfCurrentUser);
+
+            repo.DeleteRange(customer.CustomerPrograms);
+
+            await repo.DeleteAsync<User>(idOfCurrentUser);
+
+            await repo.SaveChangesAsync();
+        }
     }
 }

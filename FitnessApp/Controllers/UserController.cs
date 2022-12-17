@@ -148,5 +148,15 @@ namespace FitnessApp.Controllers
                     return NotFound();
                 }         
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> DeleteCustomer()
+        {
+
+            await accountService.DeleteCustomer(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            return RedirectToAction("Logout", "User");
+        }
     }
 }
