@@ -2,7 +2,6 @@
 using FitnessApp.Core.Models;
 using FitnessApp.Infrastructure.Data.Common;
 using FitnessApp.Infrastructure.Data.Enities;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,7 +10,6 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-
 
 namespace FitnessApp.Core.Services
 {
@@ -44,5 +42,6 @@ namespace FitnessApp.Core.Services
             await repo.SaveChangesAsync();
         }
 
+         
     }
 }

@@ -26,6 +26,6 @@ namespace FitnessApp.Infrastructure.Data.Enities
         [Range(0, 100)]
         public int Age { get; set; }
 
-
+        public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     }
 }

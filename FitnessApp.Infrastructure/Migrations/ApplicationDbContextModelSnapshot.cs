@@ -247,6 +247,56 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.ToTable("Programs");
                 });
 
+            modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Role", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b4656095-c561-4bfa-a5ad-08f7678af1bf",
+                            ConcurrencyStamp = "830d72d2-9e67-4620-b5c5-53fd88fa0762",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "42196e3c-e72a-4778-994f-36c85380e060",
+                            ConcurrencyStamp = "ceda0b1d-8123-48f2-abee-44f027f75c11",
+                            Name = "Coach",
+                            NormalizedName = "COACH"
+                        },
+                        new
+                        {
+                            Id = "9b325984-c63f-4dec-a00b-eeaab3d34035",
+                            ConcurrencyStamp = "6844f1ca-79a9-4580-990d-c3f47f6a88c8",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        });
+                });
+
             modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.User", b =>
                 {
                     b.Property<string>("Id")
@@ -341,7 +391,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
                             Age = 25,
-                            ConcurrencyStamp = "8b212a17-e179-4e5b-92b0-746bc511752a",
+                            ConcurrencyStamp = "ea3750d5-37e4-43a2-9317-463862d6dcaf",
                             Email = "coach1@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Stanislav",
@@ -349,11 +399,11 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "COACH@MAIL.COM",
                             NormalizedUserName = "COACH1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG18xrymFSMn0mxebzAUg1UkzMtKNYa5y3cvufVFXwZ3EEQpD/grB2OoMo2uyc+ELA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHK1fGSJ7aobi6//prgK+y91bMixpz3En45jfFllmMm/vkdJsv/tNMtnIJ7dGRlbiw==",
                             PhoneNumber = "0123456789",
                             PhoneNumberConfirmed = false,
                             ProfileImageURL = "https://media-exp1.licdn.com/dms/image/C4E03AQEZzVQV_QkXxA/profile-displayphoto-shrink_800_800/0/1607428598966?e=2147483647&v=beta&t=0usI7YAARf7h56Xdo_bv6xpYtc9y7pUfD7boyRXD9jk",
-                            SecurityStamp = "86450658-ee2c-4217-9501-3aab1f3f3274",
+                            SecurityStamp = "28fa6a19-c322-45c8-b728-945a5e34ec62",
                             TwoFactorEnabled = false,
                             UserName = "coach1"
                         },
@@ -362,7 +412,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "e4b69fce-458e-4234-be1d-852bebf15846",
                             AccessFailedCount = 0,
                             Age = 30,
-                            ConcurrencyStamp = "829bea6f-c7f7-4f5f-b56f-08f2b531bd26",
+                            ConcurrencyStamp = "f2055791-faeb-429a-b10b-d8e43a7f6104",
                             Email = "coach2@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Nikola",
@@ -370,11 +420,11 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "COACH2@MAIL.COM",
                             NormalizedUserName = "COACH2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK4qZzJ6WtZlWAz7xXOO1PrLWmR0PHEqHn/xAveC1XEG4vaxlWXwRveOaJDgP0Lqeg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKM3Ta3e/+B/kIpqLuGbHOg6+1nE0trJHnwnt9NUrzgdrVXq5X0lPWrZPFdFBhfDCQ==",
                             PhoneNumber = "0222222222",
                             PhoneNumberConfirmed = false,
                             ProfileImageURL = "https://media-exp1.licdn.com/dms/image/D4D03AQF2P7FxDvXL_w/profile-displayphoto-shrink_800_800/0/1665589049799?e=2147483647&v=beta&t=UaIubCn4CURIDtu8ZFqW--yzRz0fesLnjAeqUf_iaY0",
-                            SecurityStamp = "daa8e338-b1cd-4682-8418-44159e1e78de",
+                            SecurityStamp = "09805bd9-ea7c-464b-8ca2-9466bb52a8fc",
                             TwoFactorEnabled = false,
                             UserName = "coach2"
                         },
@@ -383,7 +433,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "30b99904-02f5-4465-87a9-f7f12958029a",
                             AccessFailedCount = 0,
                             Age = 33,
-                            ConcurrencyStamp = "1dec0d12-5d6d-4ad2-a33b-039de3f39406",
+                            ConcurrencyStamp = "3a134f74-550c-4eb1-bc74-bf9377ab14b0",
                             Email = "admin1@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Petar",
@@ -391,10 +441,10 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN1@MAIL.COM",
                             NormalizedUserName = "ADMIN1",
-                            PasswordHash = "AQAAAAEAACcQAAAAENDa50+A8K6pdGAjPIxu9/sNFCs8aAPSCLvQK990EdjSadjCbrygxGf9kZ8N1ypyHg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC1FO9/LebKZMGbmyRMNgoFkNhHKpetgYj9MnpumImuHchRA12VE8LvFQvpYaJHZ9g==",
                             PhoneNumber = "0884810188",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a16654a7-7072-4a7c-af92-7064f605efe3",
+                            SecurityStamp = "fc01c0d1-7dfc-4248-bdfa-8693a081e771",
                             TwoFactorEnabled = false,
                             UserName = "admin1"
                         },
@@ -403,7 +453,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "f17f9cb5-f8ca-4462-85ff-ca3f59136189",
                             AccessFailedCount = 0,
                             Age = 29,
-                            ConcurrencyStamp = "5bf27896-e8ac-4277-b785-11dba64090e7",
+                            ConcurrencyStamp = "324a0ec2-ec67-4d5e-b1f3-efeee8fcb4c4",
                             Email = "client1@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Stan",
@@ -411,11 +461,11 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENT1@MAIL.COM",
                             NormalizedUserName = "CLIENT1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOWgVaR9lzmm6qdkReoBs7vvr5LF+tYm8NxcUG+8WxvGHPWB37xddoFW9SJoCSVLyw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIKqdlAFgbfLYbi25648pKOgpzukEGy7pPdoNMZWdOk2/09D4w/RluUijK59/FZ3dQ==",
                             PhoneNumber = "0885554888",
                             PhoneNumberConfirmed = false,
                             ProfileImageURL = "https://i.ytimg.com/vi/VpQCMU3Q0RU/maxresdefault.jpg",
-                            SecurityStamp = "a34a41af-dc1d-49b8-9138-38982f7036e7",
+                            SecurityStamp = "b0b0f8cf-b7c2-48b7-8372-215f92e26ad9",
                             TwoFactorEnabled = false,
                             UserName = "client1"
                         },
@@ -424,7 +474,7 @@ namespace FitnessApp.Infrastructure.Migrations
                             Id = "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2",
                             AccessFailedCount = 0,
                             Age = 22,
-                            ConcurrencyStamp = "449b2e51-26bc-4968-9954-c8623140f29d",
+                            ConcurrencyStamp = "f4713dc8-2333-4160-8b5b-50bbd14275af",
                             Email = "client2@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Radostin",
@@ -432,63 +482,13 @@ namespace FitnessApp.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CLIENT2@MAIL.COM",
                             NormalizedUserName = "CLIENT2",
-                            PasswordHash = "AQAAAAEAACcQAAAAELf4ANKuwonRps4namQQKBTEhHKkojTiVIj9rglLLXNz2FCy6+S1NHfZNdM2+dQGBQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEATi4iKDIIpSB1yVeaCm47EumYOnBoDUU/q6vnY3aGsAHTrGv3JoZz8/OKQAi2M1EQ==",
                             PhoneNumber = "0256810188",
                             PhoneNumberConfirmed = false,
                             ProfileImageURL = "https://yt3.ggpht.com/ytc/AMLnZu9ZGUZqNxqW_GYK3RGSeuYNdDfqO8M6mBgpRmZjDA=s800-c-k-c0x00ffffff-no-rj",
-                            SecurityStamp = "21451aff-36af-4ff8-8ff6-e90c9cbe8ab9",
+                            SecurityStamp = "33d462cb-c546-4e29-b7fb-a85bb0c88aab",
                             TwoFactorEnabled = false,
                             UserName = "client2"
-                        });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "b4656095-c561-4bfa-a5ad-08f7678af1bf",
-                            ConcurrencyStamp = "c83540e5-7887-483f-afa6-d98ec168a77c",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "42196e3c-e72a-4778-994f-36c85380e060",
-                            ConcurrencyStamp = "e8c68c4e-cb00-4859-8a77-d93100af2599",
-                            Name = "Coach",
-                            NormalizedName = "COACH"
-                        },
-                        new
-                        {
-                            Id = "9b325984-c63f-4dec-a00b-eeaab3d34035",
-                            ConcurrencyStamp = "2884335a-2333-4839-b7f6-6b217a08080d",
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
                         });
                 });
 
@@ -574,11 +574,45 @@ namespace FitnessApp.Infrastructure.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserId", "RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<string>");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.UserRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<string>");
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.HasDiscriminator().HasValue("UserRole");
 
                     b.HasData(
                         new
@@ -606,27 +640,6 @@ namespace FitnessApp.Infrastructure.Migrations
                             UserId = "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2",
                             RoleId = "9b325984-c63f-4dec-a00b-eeaab3d34035"
                         });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Article", b =>
@@ -710,7 +723,7 @@ namespace FitnessApp.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -735,21 +748,6 @@ namespace FitnessApp.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.HasOne("FitnessApp.Infrastructure.Data.Enities.User", null)
@@ -757,6 +755,25 @@ namespace FitnessApp.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.UserRole", b =>
+                {
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FitnessApp.Infrastructure.Data.Enities.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Category", b =>
@@ -781,6 +798,16 @@ namespace FitnessApp.Infrastructure.Migrations
             modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Program", b =>
                 {
                     b.Navigation("CustomerPrograms");
+                });
+
+            modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("FitnessApp.Infrastructure.Data.Enities.User", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

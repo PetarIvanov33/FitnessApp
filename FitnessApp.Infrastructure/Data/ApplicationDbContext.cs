@@ -1,12 +1,14 @@
 ﻿using FitnessApp.Infrastructure.Data.Configuration;
 using FitnessApp.Infrastructure.Data.Enities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 
 namespace FitnessApp.Infrastructure.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<User, Role, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>,
+        IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -32,7 +34,12 @@ namespace FitnessApp.Infrastructure.Data
                 u.Property(u => u.ProfileImageURL).HasDefaultValue("https://www.pngkey.com/png/detail/115-1150152_default-profile-picture-avatar-png-green.png");
             });
 
-           
+
+            builder.Entity<UserRole>(ur =>
+            {
+                ur.HasOne(ur => ur.User).WithMany(u => u.UserRoles).HasForeignKey(ur => ur.UserId);
+                ur.HasOne(ur => ur.Role).WithMany(u => u.UserRoles).HasForeignKey(ur => ur.RoleId);
+            });
 
             builder.Entity<CustomerProgram>()
                .HasKey(x => new { x.ProgramId, x.CustomerId });

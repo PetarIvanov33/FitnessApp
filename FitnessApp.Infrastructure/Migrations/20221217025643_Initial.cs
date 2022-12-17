@@ -30,6 +30,7 @@ namespace FitnessApp.Infrastructure.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    ProfileImageURL = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false, defaultValue: "https://www.pngkey.com/png/detail/115-1150152_default-profile-picture-avatar-png-green.png"),
                     Age = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
@@ -131,7 +132,8 @@ namespace FitnessApp.Infrastructure.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -298,21 +300,25 @@ namespace FitnessApp.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "42196e3c-e72a-4778-994f-36c85380e060", "25131868-1ac8-4825-a46f-c876601d6c2f", "Coach", "COACH" },
-                    { "9b325984-c63f-4dec-a00b-eeaab3d34035", "4132b12d-9a43-4980-85eb-95dd594480d8", "Customer", "CUSTOMER" },
-                    { "b4656095-c561-4bfa-a5ad-08f7678af1bf", "2aa65b44-8acd-43e2-9083-3f306e4c7753", "Admin", "ADMIN" }
+                    { "42196e3c-e72a-4778-994f-36c85380e060", "ceda0b1d-8123-48f2-abee-44f027f75c11", "Coach", "COACH" },
+                    { "9b325984-c63f-4dec-a00b-eeaab3d34035", "6844f1ca-79a9-4580-990d-c3f47f6a88c8", "Customer", "CUSTOMER" },
+                    { "b4656095-c561-4bfa-a5ad-08f7678af1bf", "830d72d2-9e67-4620-b5c5-53fd88fa0762", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Age", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "30b99904-02f5-4465-87a9-f7f12958029a", 0, 33, "3a134f74-550c-4eb1-bc74-bf9377ab14b0", "admin1@mail.com", false, "Petar", "Ivanov", false, null, "ADMIN1@MAIL.COM", "ADMIN1", "AQAAAAEAACcQAAAAEC1FO9/LebKZMGbmyRMNgoFkNhHKpetgYj9MnpumImuHchRA12VE8LvFQvpYaJHZ9g==", "0884810188", false, "fc01c0d1-7dfc-4248-bdfa-8693a081e771", false, "admin1" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Age", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfileImageURL", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "30b99904-02f5-4465-87a9-f7f12958029a", 0, 33, "04ca3693-54ef-4ae1-a309-4755d4fb036d", "admin1@mail.com", false, "Petar", "Ivanov", false, null, "ADMIN1@MAIL.COM", "ADMIN1", "AQAAAAEAACcQAAAAEBP6ydd+Og58Cw8LzF81cjb8LS/r1HjATsgSdTpVgPL45chhftQI6Spb4+AARw9dfA==", "0884810188", false, "46ef934f-5ef3-4b6a-90a7-2616f2b7c190", false, "admin1" },
-                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, 25, "f4c17445-00be-48d5-9727-8c7f9fcd0de3", "coach1@mail.com", false, "Stanislav", "Chakurov", false, null, "COACH@MAIL.COM", "COACH1", "AQAAAAEAACcQAAAAEPV51znMl4AS6FNBc0cNWwULYjc+csoE6K2MW2ugXgKHELe8iaMDOtCVuwaNC6GJ6A==", "0123456789", false, "3b5ba587-d382-4fdb-a780-c51f1f411dce", false, "coach1" },
-                    { "e4b69fce-458e-4234-be1d-852bebf15846", 0, 30, "5b7c3bb7-c725-4b4c-ad3c-b6079f4cce89", "coach2@mail.com", false, "Nikola", "Tomov", false, null, "COACH2@MAIL.COM", "COACH2", "AQAAAAEAACcQAAAAEEFC0fqMmdK05LfFgUTWuToEDyKaytzSrUVLdRuAui3kpj4d0R/ruxJadSBG4pV90w==", "0222222222", false, "6aad8c08-b9cc-46a4-b3fd-68821bfaf6ab", false, "coach2" },
-                    { "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2", 0, 22, "73427a2c-76df-49ec-afaf-b2e4a4c7cca9", "client2@mail.com", false, "Georgi", "Shishkov", false, null, "CLIENT2@MAIL.COM", "CLIENT2", "AQAAAAEAACcQAAAAEM+27nGlaIgWBmwWLIBtQ7h9p0SvE4KS8qs2Zm7bK2ezu38GhfpJFMFCpk8wBvvcWw==", "0256810188", false, "210a316e-f26b-405e-8def-89923361de02", false, "client2" },
-                    { "f17f9cb5-f8ca-4462-85ff-ca3f59136189", 0, 29, "5c60ad92-ac6e-4f5e-9a09-2ccb3310e778", "client1@mail.com", false, "Kaloqn", "Cholakov", false, null, "CLIENT1@MAIL.COM", "CLIENT1", "AQAAAAEAACcQAAAAECBzCPLuK50GR+K2DJHOzOj1Oo75F2fjKs0UufBdQn2QgJdWao5Bpv8RR31zYLC7+g==", "0885554888", false, "e8f49b11-b886-43e2-a756-cc0600905e76", false, "client1" }
+                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, 25, "ea3750d5-37e4-43a2-9317-463862d6dcaf", "coach1@mail.com", false, "Stanislav", "Chakurov", false, null, "COACH@MAIL.COM", "COACH1", "AQAAAAEAACcQAAAAEHK1fGSJ7aobi6//prgK+y91bMixpz3En45jfFllmMm/vkdJsv/tNMtnIJ7dGRlbiw==", "0123456789", false, "https://media-exp1.licdn.com/dms/image/C4E03AQEZzVQV_QkXxA/profile-displayphoto-shrink_800_800/0/1607428598966?e=2147483647&v=beta&t=0usI7YAARf7h56Xdo_bv6xpYtc9y7pUfD7boyRXD9jk", "28fa6a19-c322-45c8-b728-945a5e34ec62", false, "coach1" },
+                    { "e4b69fce-458e-4234-be1d-852bebf15846", 0, 30, "f2055791-faeb-429a-b10b-d8e43a7f6104", "coach2@mail.com", false, "Nikola", "Tomov", false, null, "COACH2@MAIL.COM", "COACH2", "AQAAAAEAACcQAAAAEKM3Ta3e/+B/kIpqLuGbHOg6+1nE0trJHnwnt9NUrzgdrVXq5X0lPWrZPFdFBhfDCQ==", "0222222222", false, "https://media-exp1.licdn.com/dms/image/D4D03AQF2P7FxDvXL_w/profile-displayphoto-shrink_800_800/0/1665589049799?e=2147483647&v=beta&t=UaIubCn4CURIDtu8ZFqW--yzRz0fesLnjAeqUf_iaY0", "09805bd9-ea7c-464b-8ca2-9466bb52a8fc", false, "coach2" },
+                    { "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2", 0, 22, "f4713dc8-2333-4160-8b5b-50bbd14275af", "client2@mail.com", false, "Radostin", "Kuzmanov", false, null, "CLIENT2@MAIL.COM", "CLIENT2", "AQAAAAEAACcQAAAAEATi4iKDIIpSB1yVeaCm47EumYOnBoDUU/q6vnY3aGsAHTrGv3JoZz8/OKQAi2M1EQ==", "0256810188", false, "https://yt3.ggpht.com/ytc/AMLnZu9ZGUZqNxqW_GYK3RGSeuYNdDfqO8M6mBgpRmZjDA=s800-c-k-c0x00ffffff-no-rj", "33d462cb-c546-4e29-b7fb-a85bb0c88aab", false, "client2" },
+                    { "f17f9cb5-f8ca-4462-85ff-ca3f59136189", 0, 29, "324a0ec2-ec67-4d5e-b1f3-efeee8fcb4c4", "client1@mail.com", false, "Stan", "Subev", false, null, "CLIENT1@MAIL.COM", "CLIENT1", "AQAAAAEAACcQAAAAEIKqdlAFgbfLYbi25648pKOgpzukEGy7pPdoNMZWdOk2/09D4w/RluUijK59/FZ3dQ==", "0885554888", false, "https://i.ytimg.com/vi/VpQCMU3Q0RU/maxresdefault.jpg", "b0b0f8cf-b7c2-48b7-8372-215f92e26ad9", false, "client1" }
                 });
 
             migrationBuilder.InsertData(
@@ -330,14 +336,14 @@ namespace FitnessApp.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
+                columns: new[] { "RoleId", "UserId", "Discriminator" },
                 values: new object[,]
                 {
-                    { "b4656095-c561-4bfa-a5ad-08f7678af1bf", "30b99904-02f5-4465-87a9-f7f12958029a" },
-                    { "42196e3c-e72a-4778-994f-36c85380e060", "dea12856-c198-4129-b3f3-b893d8395082" },
-                    { "42196e3c-e72a-4778-994f-36c85380e060", "e4b69fce-458e-4234-be1d-852bebf15846" },
-                    { "9b325984-c63f-4dec-a00b-eeaab3d34035", "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2" },
-                    { "9b325984-c63f-4dec-a00b-eeaab3d34035", "f17f9cb5-f8ca-4462-85ff-ca3f59136189" }
+                    { "b4656095-c561-4bfa-a5ad-08f7678af1bf", "30b99904-02f5-4465-87a9-f7f12958029a", "UserRole" },
+                    { "42196e3c-e72a-4778-994f-36c85380e060", "dea12856-c198-4129-b3f3-b893d8395082", "UserRole" },
+                    { "42196e3c-e72a-4778-994f-36c85380e060", "e4b69fce-458e-4234-be1d-852bebf15846", "UserRole" },
+                    { "9b325984-c63f-4dec-a00b-eeaab3d34035", "e999e7c1-d7e5-4fa4-a358-a54b3a3732a2", "UserRole" },
+                    { "9b325984-c63f-4dec-a00b-eeaab3d34035", "f17f9cb5-f8ca-4462-85ff-ca3f59136189", "UserRole" }
                 });
 
             migrationBuilder.InsertData(
