@@ -8,6 +8,8 @@ namespace FitnessApp.Core.Models
 {
     public class DisplayeUsersModel
     {
+        public string UserId { get; set; } = null!;
+
         public string ProfileImageURL { get; set; } = null!;
 
         public string FirstName { get; set; } = null!;

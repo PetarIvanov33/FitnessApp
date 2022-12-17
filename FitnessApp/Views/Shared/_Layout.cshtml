@@ -19,9 +19,16 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
-                        </li>
+                        @if (this.User?.Identity != null && (this.User.IsInRole("Coach") == false))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
+                            </li>
+                        }
+                        @if (this.User?.Identity != null && (this.User.IsInRole("Coach") || this.User.IsInRole("Customer")))
+                        {
+                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="User" asp-action="DisplayedProfile">МОЯТ ПРОФИЛ</a>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Article" asp-action="All">Всички статии</a>
                         </li>

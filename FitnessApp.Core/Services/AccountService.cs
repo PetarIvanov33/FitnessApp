@@ -61,24 +61,32 @@ namespace FitnessApp.Core.Services
         public async Task<IEnumerable<DisplayeUsersModel>> GetAllUsersAsync()
         {
             var users = await (from user in repo.All<User>()
-                                 join userRoles in repo.All<UserRole>() 
-                                 on user.Id equals userRoles.UserId
-                                 join role in repo.All<Role>() 
-                                 on userRoles.RoleId equals role.Id
-                                 where role.Name != "Admin"
-                                 select new DisplayeUsersModel()
-                                 {
+                               join userRoles in repo.All<UserRole>()
+                               on user.Id equals userRoles.UserId
+                               join role in repo.All<Role>()
+                               on userRoles.RoleId equals role.Id
+                               where role.Name != "Admin"
+                               select new DisplayeUsersModel()
+                               {
+                                   UserId = user.Id,
                                      ProfileImageURL = user.ProfileImageURL,
-                                     FirstName = user.FirstName,
-                                     LastName = user.LastName,
-                                     Age = user.Age,
-                                     UserName = user.UserName,
-                                     Email = user.Email,
-                                     PhoneNumber = user.PhoneNumber,
-                                     Role = role.Name
-                                 })
+                                   FirstName = user.FirstName,
+                                   LastName = user.LastName,
+                                   Age = user.Age,
+                                   UserName = user.UserName,
+                                   Email = user.Email,
+                                   PhoneNumber = user.PhoneNumber,
+                                   Role = role.Name
+                               })
                         .ToListAsync();
             return users;
+        }
+
+        public async Task<DisplayeUsersModel> GetCurrentUserProfile(string idOfCurrentUser)
+        {
+            var customers = await GetAllUsersAsync();
+
+            return customers.First(x => x.UserId == idOfCurrentUser);
         }
     }
 }

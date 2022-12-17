@@ -19,5 +19,6 @@ namespace FitnessApp.Core.Contracts
 
         Task<IEnumerable<DisplayeUsersModel>> GetAllCustomers();
 
+        Task<DisplayeUsersModel> GetCurrentUserProfile(string idOfCurrentUser);
     }
 }

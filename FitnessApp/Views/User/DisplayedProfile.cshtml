@@ -1,0 +1,37 @@
+﻿@using FitnessApp.Core.Models
+@model DisplayeUsersModel
+
+@{
+    ViewBag.Title = "Моят профил";
+}
+
+<style>
+    body {
+        background-image: url('https://coolwallpapers.me/picsup/5688017-dark-grey-wallpapers.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+</style>
+
+<div class="content">
+    <article style="
+        width: 630px;
+        border: 2px solid gray;
+        padding: 10px;
+        border-radius: 10px;
+        margin: auto;
+        background-color:#DCDCDC;
+      " class="text-center center">
+        <img src=@Model.ProfileImageURL
+             alt=""
+             width="600"
+             height="500"
+             class="alignnone size-medium wp-image-560930" />
+        <h2>@Model.FirstName @Model.LastName</h2>
+        <h2>Години: @Model.Age</h2>
+        <h2>Потребителско име: @Model.UserName</h2>
+        <h2>Имейл: @Model.Email</h2>
+        <h2>Телефонен номер: @Model.PhoneNumber</h2>
+    </article>
+</div>

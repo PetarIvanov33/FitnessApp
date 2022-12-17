@@ -1,10 +1,12 @@
 ﻿using FitnessApp.Core.Contracts;
+using FitnessApp.Core.Services;
 using FitnessApp.Infrastructure.Data.Common;
 using FitnessApp.Infrastructure.Data.Enities;
 using FitnessApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace FitnessApp.Controllers
 {
@@ -127,6 +129,20 @@ namespace FitnessApp.Controllers
             await signInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Customer, Coach")]
+        public async Task<IActionResult> DisplayedProfile()
+        {
+                try
+                {
+                    return View(await accountService.GetCurrentUserProfile(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+                }
+                catch (Exception)
+                {
+                    return NotFound();
+                }         
         }
     }
 }
