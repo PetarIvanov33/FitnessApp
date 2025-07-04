@@ -3,6 +3,7 @@ using FitnessApp.Core.Services;
 using FitnessApp.Infrastructure.Data;
 using FitnessApp.Infrastructure.Data.Common;
 using FitnessApp.Infrastructure.Data.Enities;
+using System.Globalization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -86,5 +87,9 @@ app.UseEndpoints(endpoints =>
 });
 
 app.MapRazorPages();
+
+var cultureInfo = new CultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 app.Run();
