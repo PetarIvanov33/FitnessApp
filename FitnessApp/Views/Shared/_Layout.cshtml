@@ -7,71 +7,125 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FitnessApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-u2AA..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .btn-custom {
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+            .btn-custom:hover {
+                background-color: #002244;
+                box-shadow: 0 0 10px rgba(0,0,0,0.4);
+                color: white;
+            }
+
+        .navbar-brand {
+            font-size: 1.3rem;
+        }
+
+        .nav-item {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Fitness App</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand fw-bold text-white" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-dumbbell me-1"></i>Fitness App Administration
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="nav nav-pills">
+                    <ul class="navbar-nav flex-grow-1 gap-2">
                         @if (this.User?.Identity != null && (this.User.IsInRole("Coach") == false))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
+                                <a class="btn btn-custom" asp-area="" asp-controller="Home" asp-action="Index">
+                                    <i class="fas fa-home me-1"></i>Начало
+                                </a>
                             </li>
                         }
+
                         @if (this.User?.Identity != null && (this.User.IsInRole("Coach") || this.User.IsInRole("Customer")))
                         {
-                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="User" asp-action="DisplayedProfile">МОЯТ ПРОФИЛ</a>
+                            <li class="nav-item">
+                                <a class="btn btn-custom" asp-area="" asp-controller="User" asp-action="DisplayedProfile">
+                                    <i class="fas fa-user me-1"></i>МОЯТ ПРОФИЛ
+                                </a>
+                            </li>
                         }
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Article" asp-action="All">Всички статии</a>
+                            <a class="btn btn-custom" asp-area="" asp-controller="Article" asp-action="All">
+                                <i class="fas fa-newspaper me-1"></i>Всички статии
+                            </a>
                         </li>
-                       @if(this.User?.Identity != null && this.User.IsInRole("Coach"))
-                       {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Article" asp-action="AllForThisCoach">Моите статии</a>
-                            </li>
-                           <li class="nav-item dropdown">
-                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Article" asp-action="Add">Добави статия</a>
-                            </li>
-                       }
-                        
-                        @if(this.User?.Identity != null && this.User.IsInRole("Customer"))
-                       {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Program" asp-action="AllForCustomers">Всички програми</a>
-                            </li>
-                           <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Program" asp-action="AllForThisCustomer">Закупени програми</a>
-                        </li>
-                       }
-                       else
+
+                        @if (this.User?.Identity != null && this.User.IsInRole("Coach"))
                         {
-                                <li class="nav-item">
-                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Program" asp-action="All">Всички програми</a>
+                            <li class="nav-item">
+                                <a class="btn btn-custom" asp-area="" asp-controller="Article" asp-action="AllForThisCoach">
+                                    <i class="fas fa-user-edit me-1"></i>Моите статии
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-custom" asp-area="" asp-controller="Article" asp-action="Add">
+                                    <i class="fas fa-plus-circle me-1"></i>Добави статия
+                                </a>
                             </li>
                         }
-                        @if(this.User?.Identity != null && this.User.IsInRole("Coach"))
-                       {
+
+                        @if (this.User?.Identity != null && this.User.IsInRole("Customer"))
+                        {
                             <li class="nav-item">
-                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Program" asp-action="AllForThisCoach">Моите програми</a>
+                                <a class="btn btn-custom" asp-area="" asp-controller="Program" asp-action="AllForCustomers">
+                                    <i class="fas fa-list me-1"></i>Всички програми
+                                </a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Program" asp-action="Add">Добави програма</a>
+                            <li class="nav-item">
+                                <a class="btn btn-custom" asp-area="" asp-controller="Program" asp-action="AllForThisCustomer">
+                                    <i class="fas fa-bookmark me-1"></i>Закупени програми
+                                </a>
                             </li>
-                       }
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-custom" asp-area="" asp-controller="Program" asp-action="All">
+                                    <i class="fas fa-list-alt me-1"></i>Всички програми
+                                </a>
+                            </li>
+                        }
+
+                        @if (this.User?.Identity != null && this.User.IsInRole("Coach"))
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-custom" asp-area="" asp-controller="Program" asp-action="AllForThisCoach">
+                                    <i class="fas fa-dumbbell me-1"></i>Моите програми
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-custom" asp-area="" asp-controller="Program" asp-action="Add">
+                                    <i class="fas fa-plus-square me-1"></i>Добави програма
+                                </a>
+                            </li>
+                        }
                     </ul>
-                    <partial name="_LoginPartial" />
+                    <div class="d-flex align-items-center ms-auto">
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -80,9 +134,10 @@
 
     <footer class="border-top footer text">
         <div class="container text-white fw-bold">
-            &copy; 2022 - FitnessApp 
+            &copy; 2022 - FitnessApp
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
